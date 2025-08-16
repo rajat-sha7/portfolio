@@ -14,7 +14,7 @@ const ProjectCTA = () => {
   };
 
   return (
-    <section 
+    <section id="contact"
       className="mb-10 md:mb-20 px-5 sm:px-6 lg:px-8 w-[calc(100%-40px)] max-w-[1280px] h-auto md:h-[452px] rounded-2xl md:rounded-[24px] mx-auto py-12 md:py-0"
       style={{ 
         background: `url(${BG.src})`, 

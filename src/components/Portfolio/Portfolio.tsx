@@ -66,7 +66,7 @@ export const Portfolio = () => {
     : portfolioItems.filter(item => item.category === activeCategory);
 
   return (
-    <div className="bg-background py-12 md:py-[152px] px-4 sm:px-6 lg:px-8">
+    <div id="resume" className="bg-background py-12 md:py-[152px] px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1320px] px-4 md:px-5 mx-auto">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
