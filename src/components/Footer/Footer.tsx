@@ -14,8 +14,8 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/rajat-sharma-93175b199/" },
-    { icon: Github, label: "GitHub", href: "https://github.com/rajat-sha7" },
-    { icon: Globe, label: "Portfolio", href: "https://portfolio-alpha-five-37.vercel.app" },
+    { icon: Github, label: "GitHub", href: "https://github.com/rajat-sha7/portfolio" },
+    { icon: Globe, label: "Portfolio", href: "https://portfolio-rajat-sha7s-projects.vercel.app" },
   ];
 
   return (
