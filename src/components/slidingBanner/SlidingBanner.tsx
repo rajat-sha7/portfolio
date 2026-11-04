@@ -1,75 +1,42 @@
-'use client'
-import React from 'react'
-import Image from 'next/image'
+import React from "react";
+import Image from "next/image";
 
 const bannerItems = [
-  "User Reasearch",
-  "UX/UI Design", 
-  "App Design",
-  "Dashboard Design",
-  "Wireframing"
+  "React",
+  "Next.js",
+  "Vue & Nuxt",
+  "SvelteKit",
+  "TypeScript",
+  "Headless CMS",
+  "AI & LLM Apps",
 ];
 
+// One "half" of the track. The track holds two identical halves and slides
+// by -50%, so the loop restarts exactly where it began (no jump or gap).
+const Half = ({ hidden = false }: { hidden?: boolean }) => (
+  <div className="flex shrink-0 items-center" aria-hidden={hidden || undefined}>
+    {[0, 1].map((rep) =>
+      bannerItems.map((item) => (
+        <React.Fragment key={`${rep}-${item}`}>
+          <span className="font-bruno-ace text-white text-xl sm:text-2xl md:text-3xl whitespace-nowrap px-6 md:px-8">
+            {item}
+          </span>
+          <Image src="/Star.svg" alt="" width={32} height={32} className="h-6 w-6 md:h-8 md:w-8 shrink-0" />
+        </React.Fragment>
+      ))
+    )}
+  </div>
+);
+
 const SlidingBanner = () => {
-
-  const  items = bannerItems
-  const logo = "/star.svg"
   return (
-    <div className="w-full h-[50px] bg-gradient-to-r from-[#4C7DFE] to-[#001959] overflow-hidden relative">
-      <div className="absolute flex items-center h-full whitespace-nowrap">
-        {/* First set for seamless looping */}
-        <div className="flex items-center animate-[marquee_100s_linear_infinite]">
-          {[...Array(4)].map((_, i) => (
-            <React.Fragment key={`first-${i}`}>
-              {items.map((item, index) => (
-                <React.Fragment key={`first-item-${index}`}>
-                  <span className="text-white text-4xl font-bruno-ace font-normal mx-8">{item}</span>
-                  <Image 
-                    src={logo}
-                    alt="Logo" 
-                    width={80} 
-                    height={80} 
-                    className="mx-8"
-                    priority
-                  />
-                </React.Fragment>
-              ))}
-            </React.Fragment>
-          ))}
-        </div>
-        {/* Second identical set for seamless looping */}
-        <div className="flex items-center animate-[marquee_100s_linear_infinite] ml-[100%]">
-          {[...Array(4)].map((_, i) => (
-            <React.Fragment key={`second-${i}`}>
-              {items.map((item, index) => (
-                <React.Fragment key={`second-item-${index}`}>
-                  <span className="text-white text-4xl font-bruno-ace font-normal mx-8">{item}</span>
-                  <Image 
-                    src={logo}
-                    alt="Logo" 
-                    width={80} 
-                    height={80} 
-                    className="mx-8"
-                    priority
-                  />
-                </React.Fragment>
-              ))}
-            </React.Fragment>
-          ))}
-        </div>
+    <div className="group w-full h-[50px] md:h-[64px] bg-gradient-to-r from-[#4C7DFE] to-[#001959] overflow-hidden flex items-center">
+      <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] will-change-transform">
+        <Half />
+        <Half hidden />
       </div>
-      <style jsx global>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
-        }
-      `}</style>
     </div>
-  )
-}
+  );
+};
 
-export default SlidingBanner
+export default SlidingBanner;
