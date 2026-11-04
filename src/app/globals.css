@@ -1,9 +1,55 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
-/* @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap'); */
+@import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Site-specific tokens used by the components (fonts, brand colors, animations) */
+@theme {
+  --font-bruno-ace: "Bruno Ace", sans-serif;
+  --font-plus-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-plus-jakarta-display: "Plus Jakarta Sans", sans-serif;
+  --font-urbanist: "Plus Jakarta Sans", sans-serif;
+
+  --color-blue-accent: #4c7dfe;
+  --color-portfolio-nav: #475467;
+  --color-portfolio-nav-active: #00070e;
+  --color-portfolio-card-hover: #e4e7ec;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-text-gradient: text-gradient 3s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 5s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes text-gradient {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -118,12 +164,14 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    overflow-x: clip;
+  }
   body {
     @apply bg-background text-foreground;
+    overflow-x: clip;
+  }
+  section[id] {
+    scroll-margin-top: 96px;
   }
 }
-
-
-/* body {
-  font-family: 'Lato', sans-serif;
-} */

@@ -1,22 +1,36 @@
 'use client'
+import Reveal from '@/components/motion/Reveal';
+// Focus areas from the GitHub profile. Swap in real job history (company, dates, role) when available.
 const experiences = [
   {
-    company: "RW InfoTech Pvt. Ltd.",
-    period: "Jan 2024 - May 2025", 
-    position: "UI/UX Designer",
-    description: "Involved in the design process of mobile applications, website, and visual appeal. Responsible for creating and designing user experience and visual appeal. Participated in brainstorming sessions to develop creative concepts and visual strategies."
+    company: "Modern Frameworks",
+    period: "Next.js · Nuxt · SvelteKit",
+    position: "Server-rendered & static sites",
+    description: "Building production web applications across the React, Vue and Svelte ecosystems, using server rendering and static generation for fast, SEO-friendly pages."
   },
   {
-    company: "Radial Code Intern",
-    period: "Dec 2022 - Nov 2023",
-    position: "UI/UX Designer Intern", 
-    description: "Worked on multiple web and app design projects, gaining practical experience in user experience design. Collaborated with senior designers to develop prototypes and design systems, ensuring high-quality user experience."
+    company: "Headless CMS",
+    period: "Sanity · Strapi · Storyblok · Builder.io",
+    position: "Content modelling & visual editing",
+    description: "Integrating headless CMS platforms with content modelling, visual editing and live previews, so content teams can ship pages without waiting on developers."
   },
   {
-    company: "Radial Code Pvt. Ltd",
-    period: "Sep 2022 - Dec 2023",
-    position: "UI/UX Designing Diploma",
-    description: "Began learning the fundamentals of UI/UX design, including user research, wireframing, and visual design principles. Gained hands-on experience with design tools and methodologies, developing a strong foundation for professional UI/UX work. Friendly and responsive interface. Collaborated with fellow designers to develop prototypes and design systems, laying the foundation for professional UI/UX work."
+    company: "Performance",
+    period: "Core Web Vitals · Lighthouse",
+    position: "Fast, accessible frontends",
+    description: "Code splitting, lazy loading, image and bundle optimisation. Analysing Lighthouse and Core Web Vitals reports to find bottlenecks and apply targeted fixes."
+  },
+  {
+    company: "Component Libraries",
+    period: "TypeScript · Tailwind CSS · Radix UI",
+    position: "Type-safe, reusable UI",
+    description: "Turning designs into maintainable, component-driven frontends with type-safe, reusable component libraries."
+  },
+  {
+    company: "AI & LLM Apps",
+    period: "Claude · ChatGPT · LLM APIs",
+    position: "AI-assisted development",
+    description: "Integrating LLM APIs into React and Next.js apps, building chat interfaces and content generation features, and using AI for scaffolding, code review, refactoring and documentation."
   }
 ];
 
@@ -25,21 +39,21 @@ const WorkExperience = () => {
     <div className="bg-background py-12 md:py-[152px] px-4 sm:px-6 lg:px-8 w-full max-w-[1440px] mx-auto">
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-12">
+        <Reveal className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-[52px] font-bruno-ace font-normal leading-[110%] tracking-0 text-foreground">
-            My <span style={{ background: 'linear-gradient(180deg, #4C7DFE 0%, #001959 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
-              Work Experience
+            What I <span style={{ background: 'linear-gradient(180deg, #4C7DFE 0%, #001959 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
+              Work On
             </span>
           </h2>
-        </div>
+        </Reveal>
 
         {/* Timeline */}
         <div className="relative">
           {experiences.map((experience, index) => (
-            <div key={index} className="relative flex flex-col md:flex-row gap-4 md:gap-8 pb-6 last:pb-0">
+            <Reveal key={experience.company} variant="flip" delay={index * 90} className="group relative flex flex-col md:flex-row gap-4 md:gap-8 py-5 md:py-6 border-b border-border last:border-b-0 rounded-xl md:px-4 hover:bg-[#F2F4F7] transition-colors duration-300">
               {/* Left Content */}
               <div className="w-full md:w-1/2 pr-0 md:pr-8">
-                <h3 className="font-bruno-ace font-normal text-xl sm:text-2xl md:text-[32px] leading-[130%] tracking-0 text-[#00070E] mb-1">
+                <h3 className="font-bruno-ace font-normal text-xl sm:text-2xl md:text-[32px] leading-[130%] tracking-0 text-[#00070E] mb-1 transition-colors duration-300 group-hover:text-[#4C7DFE]">
                   {experience.company}
                 </h3>
                 <p className="text-muted-foreground" style={{ color: 'rgba(152, 162, 179, 1)', fontFamily: 'Bruno Ace', fontWeight: 400, fontStyle: 'normal', fontSize: '16px', lineHeight: '140%', letterSpacing: '0%' }}>
@@ -56,7 +70,7 @@ const WorkExperience = () => {
                   {experience.description}
                 </p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
