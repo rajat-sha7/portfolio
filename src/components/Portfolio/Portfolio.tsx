@@ -15,10 +15,28 @@ interface PortfolioItem {
   category: string;
   image: string;
   demo: string;
-  repo: string;
+  repo?: string; // client projects have no public code
 }
 
 const portfolioItems: PortfolioItem[] = [
+  {
+    id: 'fieldpulse',
+    title: 'FieldPulse',
+    description: 'Marketing website for a leading field service management software',
+    stack: 'SvelteKit · Sanity CMS · Vercel',
+    category: 'sveltekit',
+    image: '/projects/fieldpulse.webp',
+    demo: 'https://www.fieldpulse.com/'
+  },
+  {
+    id: 'alamotees',
+    title: 'Alamo Tees',
+    description: 'E-commerce site for custom T-shirt printing and embroidery',
+    stack: 'Next.js · Sanity CMS · Vercel',
+    category: 'nextjs',
+    image: '/projects/alamotees.webp',
+    demo: 'https://www.alamotees.com/'
+  },
   {
     id: 'resymeforge',
     title: 'ResymeForge',
@@ -38,53 +56,13 @@ const portfolioItems: PortfolioItem[] = [
     image: '/projects/devqna.webp',
     demo: 'https://dev-test-azure.vercel.app',
     repo: 'https://github.com/rajat-sha7/DevTest'
-  },
-  {
-    id: 'realestate',
-    title: 'Real Estate',
-    description: 'Property listing website with animated UI',
-    stack: 'Next.js · Tailwind CSS · Framer Motion',
-    category: 'nextjs',
-    image: '/projects/realestate.webp',
-    demo: 'https://real-estate-pearl-xi.vercel.app',
-    repo: 'https://github.com/rajat-sha7/Real_Estate'
-  },
-  {
-    id: 'investment',
-    title: 'Investment Calculator',
-    description: 'Compound-interest returns calculator',
-    stack: 'Next.js · Tailwind CSS',
-    category: 'nextjs',
-    image: '/projects/investment.webp',
-    demo: 'https://investment-calculator-ten-coral.vercel.app',
-    repo: 'https://github.com/rajat-sha7/InvestmentCalculator'
-  },
-  {
-    id: 'gym',
-    title: 'Fit Club Gym Website',
-    description: 'Gym website with animated sections',
-    stack: 'React · Framer Motion',
-    category: 'react',
-    image: '/projects/gym.webp',
-    demo: 'https://gym-website-41s.pages.dev',
-    repo: 'https://github.com/rajat-sha7/gym-website'
-  },
-  {
-    id: 'ourhome',
-    title: 'OurHome',
-    description: 'Home and property website',
-    stack: 'React · Vite · Tailwind CSS',
-    category: 'react',
-    image: '/projects/ourhome.webp',
-    demo: 'https://our-home-seven.vercel.app',
-    repo: 'https://github.com/rajat-sha7/our-home'
   }
 ];
 
 const categories = [
   { id: 'all', label: 'All' },
   { id: 'nextjs', label: 'Next.js' },
-  { id: 'react', label: 'React' }
+  { id: 'sveltekit', label: 'SvelteKit' }
 ];
 
 export const Portfolio = () => {
@@ -158,9 +136,13 @@ export const Portfolio = () => {
                 <p className="font-plus-jakarta text-sm md:text-[16px] text-muted-foreground leading-[150%]">{item.description}</p>
                 <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
                   <span className="font-plus-jakarta text-xs md:text-sm text-[#4C7DFE]">{item.stack}</span>
-                  <a href={item.repo} target="_blank" rel="noopener noreferrer" className="relative z-10 font-plus-jakarta text-xs md:text-sm text-foreground underline underline-offset-4 hover:text-[#4C7DFE] transition-colors">
-                    View code
-                  </a>
+                  {item.repo ? (
+                    <a href={item.repo} target="_blank" rel="noopener noreferrer" className="relative z-10 font-plus-jakarta text-xs md:text-sm text-foreground underline underline-offset-4 hover:text-[#4C7DFE] transition-colors">
+                      View code
+                    </a>
+                  ) : (
+                    <span className="font-plus-jakarta text-xs md:text-sm text-foreground">Client project</span>
+                  )}
                 </div>
               </div>
             </Card>
