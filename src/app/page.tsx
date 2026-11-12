@@ -7,10 +7,12 @@ import ProjectCTA from "@/components/projectCTA/projectCTA";
 
 import { Portfolio } from "@/components/Portfolio/Portfolio";
 import SlidingBanner from "@/components/slidingBanner/SlidingBanner";
+import StructuredData from "@/components/StructuredData";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
+      <StructuredData />
       <ScrollProgress />
       <Hero />
       <About />
@@ -20,6 +22,6 @@ export default function Home() {
       <SlidingBanner reverse />
       <Portfolio />
       <ProjectCTA />
-    </div>
+    </main>
   );
 }
