@@ -13,8 +13,8 @@ const brunoAce = Bruno_Ace({
 });
 
 export const metadata: Metadata = {
-  title: "Rajat Sharma | Senior Frontend Developer",
-  description: "Senior Frontend Developer (4 yrs) building fast, accessible web apps with React, Next.js, Vue, Nuxt and SvelteKit, headless CMS and AI-powered workflows.",
+  title: "Rajat Sharma | Senior Fullstack AI Developer",
+  description: "Senior Fullstack AI Developer (4 yrs) building fast, accessible web apps with React, Next.js, Vue, Nuxt and SvelteKit, headless CMS and AI-powered workflows.",
   icons: {
     icon: '/header_logo.svg',
   },
