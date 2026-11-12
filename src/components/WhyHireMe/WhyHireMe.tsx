@@ -1,88 +1,89 @@
 'use client'
-
-import Image from 'next/image';
-import Reveal from '@/components/motion/Reveal';
-import Tilt from '@/components/motion/Tilt';
+import { motion } from 'motion/react';
+import { Briefcase, FolderGit2, Rocket, type LucideIcon } from 'lucide-react';
 import CountUp from '@/components/motion/CountUp';
+import { ease, rise, Rise, SectionHeading, SpotlightCard, stagger, viewport } from '@/components/motion/primitives';
 
-const stats = [
-  {
-    value: '4+',
-    label: 'Years of Experience'
-  },
-  {
-    value: '25+',
-    label: 'Projects on GitHub'
-  },
-  {
-    value: '10+',
-    label: 'Live Deployments'
-  }
+const stats: { value: string; label: string; icon: LucideIcon }[] = [
+  { value: '4+', label: 'Years of Experience', icon: Briefcase },
+  { value: '25+', label: 'Projects on GitHub', icon: FolderGit2 },
+  { value: '10+', label: 'Live Deployments', icon: Rocket },
 ];
+
+const reasons = [
+  'Fast, accessible, SEO-friendly builds',
+  'Headless CMS with visual editing and previews',
+  'Clean, maintainable component architecture',
+  'AI-assisted workflows that speed up delivery',
+];
+
+const gradientNumber = 'bg-clip-text text-transparent bg-gradient-to-b from-[#4C7DFE] to-[#001959]';
 
 const WhyHireMe = () => {
   return (
-    <div className="bg-[#F2F4F7] py-8 md:py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Main Content */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-18 items-center">
-          {/* Profile Image - Order first on mobile */}
-          <div className="order-1 lg:order-none w-full flex justify-center lg:justify-end">
-            {/* Light circle behind the photo; the head rises above the circle's top edge */}
-            <Reveal variant="left" className="w-full max-w-[300px] md:max-w-[400px] lg:max-w-[460px]">
-            <Tilt max={8} glare={false}>
-            <div className="relative w-full aspect-[517/614] [transform-style:preserve-3d]">
-              <div className="absolute inset-x-0 bottom-0 aspect-square rounded-full bg-[linear-gradient(180deg,rgba(76,125,254,0.25)_0%,rgba(0,25,89,0.25)_100%)] [transform:translateZ(-30px)]" />
-              <div className="absolute inset-x-[8%] bottom-[4%] aspect-square rounded-full border-2 border-dashed border-[#4C7DFE]/30 animate-[spin_30s_linear_infinite] [transform:translateZ(-15px)]" />
-              <div className="absolute inset-0 overflow-hidden rounded-b-[50%_42%] [transform:translateZ(40px)]">
-                <Image
-                  src="/avatar.png"
-                  alt="Rajat Sharma"
-                  fill
-                  sizes="(min-width: 1024px) 460px, (min-width: 768px) 400px, 300px"
-                  className="object-contain object-bottom"
-                />
-              </div>
-            </div>
-            </Tilt>
-            </Reveal>
-          </div>
+    <section className="relative overflow-hidden bg-[#F2F4F7] px-4 py-16 sm:px-6 md:py-[110px] lg:px-8">
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-[8%] top-[10%] h-[70%] w-[40%] rounded-full bg-[#4C7DFE]/15 blur-[120px] animate-aurora" />
+        <div className="absolute -right-[8%] bottom-[0%] h-[70%] w-[40%] rounded-full bg-[#8EAAFF]/25 blur-[120px] animate-aurora [animation-delay:-8s]" />
+      </div>
 
-          {/* Content */}
-          <Reveal variant="right" delay={120} className="order-2 lg:order-none space-y-4 md:space-y-6">
-            <h2 className="text-3xl sm:text-4xl md:text-[52px] font-bruno-ace font-normal leading-[110%] tracking-0 text-foreground">
-              Why <span style={{ background: 'linear-gradient(180deg, #4C7DFE 0%, #001959 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
-                Hire Me
-              </span> ?
-            </h2>
-            
-            <p 
-              style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-              className="text-[#00070E] text-sm sm:text-[16px] font-plus-jakarta-display font-normal leading-[150%] tracking-0"
-            >
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        {/* Text */}
+        <div>
+          <SectionHeading align="left" eyebrow="Why me" parts={[{ text: 'Why' }, { text: 'Hire Me?', accent: true }]} />
+
+          <Rise delay={0.2}>
+            <p className="mt-5 font-plus-jakarta text-sm leading-[1.7] text-[#344054] sm:text-base">
               I build fast, accessible frontends that are easy for teams to maintain and for content editors to use. From server-rendered Next.js and Nuxt apps to headless CMS integrations with visual editing and previews, I care about Core Web Vitals, clean component architecture and shipping quickly, with AI-assisted workflows that speed up delivery without cutting corners.
             </p>
+          </Rise>
 
-            {/* Statistics */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 md:pt-6">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-left">
-                  <div className="font-bruno-ace font-normal text-2xl sm:text-[32px] leading-[130%] tracking-0 mb-1" style={{ background: 'linear-gradient(180deg, #4C7DFE 0%, #001959 100%)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
+          <motion.ul variants={stagger(0.12, 0.35)} initial="hidden" whileInView="show" viewport={viewport} className="mt-7 space-y-3">
+            {reasons.map((reason) => (
+              <motion.li key={reason} variants={rise} className="flex items-center gap-3 font-plus-jakarta text-sm font-semibold text-[#00070E] sm:text-base">
+                {/* Tick draws itself */}
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-[#4C7DFE] to-[#001959]">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <motion.path
+                      d="M5 12.5l4.5 4.5L19 7.5"
+                      variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1, transition: { duration: 0.6, ease, delay: 0.3 } } }}
+                    />
+                  </svg>
+                </span>
+                {reason}
+              </motion.li>
+            ))}
+          </motion.ul>
+        </div>
+
+        {/* Numbers */}
+        <motion.div variants={stagger(0.14, 0.2)} initial="hidden" whileInView="show" viewport={viewport} className="grid grid-cols-2 gap-4 md:gap-6">
+          {stats.map((stat, i) => (
+            <motion.div key={stat.label} variants={rise} className={i === 0 ? 'col-span-2' : ''}>
+              <motion.div whileHover={{ y: -6 }} transition={{ type: 'spring', stiffness: 300, damping: 22 }} className="h-full">
+                <SpotlightCard className="h-full overflow-hidden rounded-3xl border border-white bg-white/80 p-6 shadow-[0_24px_60px_-34px_rgba(0,25,89,0.45)] backdrop-blur-md md:p-8">
+                  {i === 0 && (
+                    // Decorative rings turning slowly in the corner of the large card
+                    <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 md:h-64 md:w-64">
+                      <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#4C7DFE]/30 animate-orbit [animation-duration:40s]" />
+                      <div className="absolute inset-8 rounded-full border border-[#4C7DFE]/25" />
+                      <div className="absolute inset-16 rounded-full bg-[#4C7DFE]/15 blur-xl animate-glow" />
+                    </div>
+                  )}
+                  <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-b from-[#4C7DFE] to-[#001959] text-white shadow-[0_12px_24px_-10px_rgba(76,125,254,0.9)] transition-transform duration-500 group-hover/spot:-rotate-6 group-hover/spot:scale-110">
+                    <stat.icon className="h-5 w-5" />
+                  </span>
+                  <div className={`relative mt-5 font-bruno-ace font-normal leading-none ${gradientNumber} ${i === 0 ? 'text-5xl md:text-7xl' : 'text-4xl md:text-5xl'}`}>
                     <CountUp value={stat.value} />
                   </div>
-                  <div 
-                    style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-                    className="text-xs sm:text-sm md:text-[16px] text-[#00070E] font-plus-jakarta-display font-normal leading-[150%] tracking-0"
-                  >
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
+                  <div className="relative mt-2 font-plus-jakarta text-sm font-semibold text-[#344054] md:text-base">{stat.label}</div>
+                </SpotlightCard>
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 

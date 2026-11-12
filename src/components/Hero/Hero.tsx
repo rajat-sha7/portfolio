@@ -15,7 +15,6 @@ import {
   type Variants,
 } from "motion/react";
 import { ArrowUpRight, Briefcase, FolderGit2 } from "lucide-react";
-import Reveal from "@/components/motion/Reveal";
 
 // Slow, soft ease-out used for every hero animation
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -179,7 +178,9 @@ const Hero = () => {
               <Words text="I'm" />
               <Words text="Rajat Sharma," className="text-blue-accent" />
               <br />
-              <Words text="Frontend Developer" className={gradientText} />
+              <Words text="Fullstack AI" className={gradientText} />
+              <br />
+              <Words text="Developer" className={gradientText} />
             </motion.h1>
 
             <motion.p variants={rise} custom={0.95} className="mt-5 font-plus-jakarta text-base font-medium text-[#00070E] sm:text-lg">
@@ -202,7 +203,7 @@ const Hero = () => {
             </motion.p>
 
             <motion.p variants={rise} custom={1.05} className="mx-auto mt-4 max-w-[520px] font-plus-jakarta text-sm leading-[1.65] text-[#344054] sm:text-base lg:mx-0">
-              Senior frontend developer building fast, accessible and
+              Senior fullstack AI developer building fast, accessible and
               SEO-friendly web apps, powered by headless CMS and AI.
             </motion.p>
 
@@ -332,29 +333,6 @@ const Hero = () => {
         </motion.div>
       </section>
       </MotionConfig>
-      <section id="about" className="relative w-full max-w-[1280px] h-auto bg-[#00070E] rounded-[12px] md:rounded-[24px] mx-auto text-white px-4 py-8 sm:px-8 sm:py-12 md:p-[74px] md:pb-[75px]">
-        <Reveal variant="flip" className="flex flex-col items-center justify-center h-full">
-          <h2 className="font-bruno-ace font-normal text-3xl sm:text-4xl md:text-[52px] leading-[110%] tracking-0 text-center">
-            About Me
-          </h2>
-          <div className="mt-4 space-y-4 max-w-max">
-            <p className="text-sm sm:text-[16px] font-plus-jakarta font-normal leading-[150%] tracking-0 text-center">
-              Hello! I&apos;m Rajat Sharma, a frontend developer with 4 years of
-              experience building production web applications across the React,
-              Vue and Svelte ecosystems. I specialise in fast, accessible,
-              SEO-friendly sites powered by headless CMS platforms like Sanity,
-              Strapi, Storyblok and Builder.io.
-            </p>
-
-            <p className="text-sm sm:text-[16px] font-plus-jakarta font-normal leading-[150%] tracking-0 text-center">
-              I turn designs into maintainable, component-driven frontends with
-              TypeScript and Tailwind CSS, keep a close eye on Core Web Vitals,
-              and use AI tools like Claude and ChatGPT to ship faster, while
-              keeping full ownership of architecture and quality.
-            </p>
-          </div>
-        </Reveal>
-      </section>
     </div>
   );
 };

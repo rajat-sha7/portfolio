@@ -28,13 +28,16 @@ const Half = ({ hidden = false }: { hidden?: boolean }) => (
   </div>
 );
 
-const SlidingBanner = () => {
+const SlidingBanner = ({ reverse = false }: { reverse?: boolean }) => {
   return (
-    <div className="group w-full h-[50px] md:h-[64px] bg-gradient-to-r from-[#4C7DFE] to-[#001959] overflow-hidden flex items-center">
-      <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] will-change-transform">
+    <div className="group relative flex h-[50px] w-full items-center overflow-hidden bg-gradient-to-r from-[#4C7DFE] to-[#001959] md:h-[64px]">
+      <div className={`flex w-max animate-marquee will-change-transform group-hover:[animation-play-state:paused] ${reverse ? "[animation-direction:reverse]" : ""}`}>
         <Half />
         <Half hidden />
       </div>
+      {/* Items fade in and out at the edges */}
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#4C7DFE] to-transparent md:w-28" />
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#001959] to-transparent md:w-28" />
     </div>
   );
 };

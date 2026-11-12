@@ -87,13 +87,13 @@ export async function POST(req: Request) {
         to: email,
         replyTo: to,
         subject: "Thanks for reaching out! I'll be in touch soon",
-        text: `Hi,\n\nThanks for getting in touch through my portfolio. I've received your message and will get back to you within 24-48 hours.\n\nIn the meantime, feel free to reply to this email with details about your project.\n\nBest regards,\nRajat Sharma\nSenior Frontend Developer`,
+        text: `Hi,\n\nThanks for getting in touch through my portfolio. I've received your message and will get back to you within 24-48 hours.\n\nIn the meantime, feel free to reply to this email with details about your project.\n\nBest regards,\nRajat Sharma\nSenior Fullstack AI Developer`,
         html: layout(`
           <h2 style="margin:0 0 12px">Thanks for reaching out!</h2>
           <p style="margin:0 0 12px">Hi,</p>
           <p style="margin:0 0 12px">Thanks for getting in touch through my portfolio. I've received your message and will get back to you within <strong>24–48 hours</strong>.</p>
           <p style="margin:0 0 20px">In the meantime, feel free to reply to this email with details about your project: goals, timeline and budget.</p>
-          <p style="margin:0">Best regards,<br/><strong>Rajat Sharma</strong><br/><span style="color:#555">Senior Frontend Developer</span></p>
+          <p style="margin:0">Best regards,<br/><strong>Rajat Sharma</strong><br/><span style="color:#555">Senior Fullstack AI Developer</span></p>
         `),
       }),
     ]);

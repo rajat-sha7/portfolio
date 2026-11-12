@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Github, Globe, Linkedin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
+import { Rise, SectionHeading, Stagger, RiseItem } from "@/components/motion/primitives";
 
 const Footer = () => {
   const navigationLinks = [
@@ -19,22 +21,33 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#00070E]">
-      <div className="bg-[#00070E] text-white py-8 md:py-16 px-4 sm:px-8 md:px-20 w-full max-w-[1440px] mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-[54px] gap-6 md:gap-0">
-          <h2 className="font-bruno-ace font-normal text-3xl sm:text-4xl md:text-[52px] leading-[110%] tracking-0 text-[#FCFCFD] text-center md:text-left">
-            Let&apos;s Connect there
-          </h2>
+    <footer className="relative overflow-hidden bg-[#00070E]">
+      {/* Glow and a thin light line along the top edge */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-[60%] left-[20%] h-[90%] w-[60%] rounded-full bg-[#4C7DFE]/20 blur-[130px] animate-aurora" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#8EAAFF]/70 to-transparent" />
+      </div>
+      <div className="relative text-white py-12 md:py-20 px-4 sm:px-8 md:px-20 w-full max-w-[1440px] mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 md:mb-[54px] gap-6 md:gap-0">
+          <SectionHeading
+            eyebrow="Say hello"
+            tone="dark"
+            parts={[{ text: "Let\u2019s" }, { text: "Connect", accent: true }, { text: "there" }]}
+            className="text-center md:!text-left"
+          />
 
-          <Button asChild className="transition-all duration-300 hover:-translate-y-1 hover:shadow-xl font-bruno-ace font-normal text-lg sm:text-xl md:text-[24px] leading-[140%] tracking-0 bg-gradient-to-b from-[#4C7DFE] to-[#001959] w-full sm:w-[200px] md:w-[242px] h-12 sm:h-14 md:h-[64px] rounded-[50px] flex items-center justify-center">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 400, damping: 22 }} className="w-full sm:w-auto">
+          <Button asChild className="relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_14px_34px_-10px_rgba(76,125,254,1)] font-bruno-ace font-normal text-lg sm:text-xl md:text-[24px] leading-[140%] tracking-0 bg-gradient-to-b from-[#4C7DFE] to-[#001959] w-full sm:w-[200px] md:w-[242px] h-12 sm:h-14 md:h-[64px] rounded-[50px] flex items-center justify-center">
             <Link href="#contact" className="group/btn">
               <span className="text-white inline-flex items-center">Hire me</span>
               <Image src="/Footer/btnarrow.svg" alt="" width={24} height={24} className="w-6 h-6 md:w-[30px] md:h-[30px] transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
+              <span aria-hidden className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-sheen" />
             </Link>
           </Button>
+          </motion.div>
         </div>
 
-        <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 mb-8 md:mb-12">
+        <Rise delay={0.15} className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 mb-8 md:mb-12">
           <div className="flex flex-col justify-between gap-4 md:gap-6 items-start">
             <div className="flex items-center gap-2">
               <Image
@@ -47,24 +60,28 @@ const Footer = () => {
               <span className="font-bruno-ace font-normal text-xl md:text-[28.76px] leading-[120%] tracking-0">RajatSharma</span>
             </div>
             <p style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }} className="text-muted-foreground max-w-full md:max-w-[628px] font-plus-jakarta-display font-normal text-sm md:text-[16px] leading-[150%] tracking-0">
-              Senior Frontend Developer with 4 years of experience in React, Next.js, Vue, Nuxt and SvelteKit. I build fast, accessible web apps powered by headless CMS and AI-assisted workflows.
+              Senior Fullstack AI Developer with 4 years of experience in React, Next.js, Vue, Nuxt and SvelteKit. I build fast, accessible web apps powered by headless CMS and AI-assisted workflows.
             </p>
 
             {/* Social Links */}
-            <div className="flex space-x-3 mt-6 md:mt-[50px]">
+            <Stagger gap={0.1} delay={0.3} className="flex space-x-3 mt-6 md:mt-[50px]">
               {socialLinks.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#4C7DFE] to-[#001959] transition-transform duration-300 hover:-translate-y-1 hover:scale-110"
-                >
-                  <Icon size={18} />
-                </a>
+                <RiseItem key={label}>
+                  <motion.a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    whileHover={{ y: -5, scale: 1.12, rotate: -6 }}
+                    whileTap={{ scale: 0.92 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 16 }}
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-b from-[#4C7DFE] to-[#001959] ring-1 ring-white/15 shadow-[0_12px_24px_-10px_rgba(76,125,254,0.9)]"
+                  >
+                    <Icon size={18} />
+                  </motion.a>
+                </RiseItem>
               ))}
-            </div>
+            </Stagger>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 min-w-0 shrink-0">
@@ -76,7 +93,7 @@ const Footer = () => {
                   <li key={index}>
                     <Link
                       href={link.href}
-                      className="text-muted-foreground hover:text-white transition-colors font-plus-jakarta-display text-sm md:text-[16px]"
+                      className="text-muted-foreground hover:text-white font-plus-jakarta-display text-sm md:text-[16px] bg-[linear-gradient(#8EAAFF,#8EAAFF)] bg-no-repeat bg-[length:0%_1px] bg-[position:0_100%] hover:bg-[length:100%_1px] transition-[background-size,color] duration-300 pb-0.5"
                       style={{
                         fontFamily: "Plus Jakarta Sans, sans-serif",
                       }}
@@ -93,7 +110,7 @@ const Footer = () => {
               <h3 className="font-bruno-ace font-normal text-base md:text-[16px] leading-[150%] tracking-0 mb-3 md:mb-4">Contact</h3>
               <div className="space-y-2 md:space-y-3">
                 {socialLinks.map(({ label, href }) => (
-                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="block text-muted-foreground hover:text-white transition-colors font-plus-jakarta-display text-sm md:text-[16px]">
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="block w-fit text-muted-foreground hover:text-white font-plus-jakarta-display text-sm md:text-[16px] bg-[linear-gradient(#8EAAFF,#8EAAFF)] bg-no-repeat bg-[length:0%_1px] bg-[position:0_100%] hover:bg-[length:100%_1px] transition-[background-size,color] duration-300 pb-0.5">
                     {label}
                   </a>
                 ))}
@@ -101,7 +118,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Rise>
 
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
