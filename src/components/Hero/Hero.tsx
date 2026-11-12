@@ -151,7 +151,7 @@ const Hero = () => {
         className="relative w-full max-w-[1440px] mx-auto overflow-hidden bg-background"
       >
         {/* Background: slow drifting colour clouds over a faint grid */}
-        <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div aria-hidden className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_16%,#000_84%,transparent),linear-gradient(to_right,transparent,#000_7%,#000_93%,transparent)] [mask-composite:intersect]">
           <div className="absolute -left-[10%] -top-[25%] h-[75%] w-[55%] rounded-full bg-[#4C7DFE]/25 blur-[110px] animate-aurora" />
           <div className="absolute -right-[12%] top-[5%] h-[75%] w-[50%] rounded-full bg-[#8EAAFF]/35 blur-[120px] animate-aurora [animation-delay:-6s] [animation-duration:24s]" />
           <div className="absolute -bottom-[35%] left-[28%] h-[60%] w-[45%] rounded-full bg-[#6C5CE7]/15 blur-[120px] animate-aurora [animation-delay:-12s]" />
@@ -175,7 +175,7 @@ const Hero = () => {
               </span>
             </motion.div>
 
-            <motion.h1 variants={line(0.3)} className="mt-6 font-normal leading-[1.15] text-foreground text-[26px] sm:text-[40px] md:text-[46px] lg:text-[34px] xl:text-[46px]">
+            <motion.h1 variants={line(0.3)} className="mt-6 font-normal leading-[1.15] text-foreground text-[22px] min-[390px]:text-[24px] sm:text-[40px] md:text-[46px] lg:text-[34px] xl:text-[46px]">
               <Words text="I'm" />
               <Words text="Rajat Sharma," className="text-blue-accent" />
               <br />
@@ -185,15 +185,15 @@ const Hero = () => {
             <motion.p variants={rise} custom={0.95} className="mt-5 font-plus-jakarta text-base font-medium text-[#00070E] sm:text-lg">
               I build with{" "}
               <span className="sr-only">React, Next.js, Vue, Nuxt, SvelteKit, TypeScript and headless CMS.</span>
-              <span aria-hidden className="relative inline-flex h-[1.5em] overflow-hidden align-bottom">
-                <AnimatePresence mode="wait" initial={false}>
+              <span aria-hidden className="inline-grid h-[1.5em] overflow-hidden align-bottom">
+                <AnimatePresence initial={false}>
                   <motion.span
                     key={rotatingStack[stackIndex]}
                     initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
                     animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                     exit={{ y: "-100%", opacity: 0, filter: "blur(6px)" }}
                     transition={{ duration: 0.45, ease }}
-                    className="inline-block whitespace-nowrap font-bold text-blue-accent"
+                    className="[grid-area:1/1] justify-self-start whitespace-nowrap font-bold text-blue-accent"
                   >
                     {rotatingStack[stackIndex]}
                   </motion.span>
@@ -292,7 +292,7 @@ const Hero = () => {
             </motion.div>
 
             {/* Floating stat cards (closest layer, moves the most with the mouse) */}
-            <motion.div style={{ x: frontX, y: frontY }} className="absolute bottom-[10%] left-[-6%] z-20 sm:left-[-4%]">
+            <motion.div style={{ x: frontX, y: frontY }} className="absolute bottom-[6%] left-[-18%] z-20 sm:bottom-[10%] sm:left-[-10%] lg:left-[-4%] xl:left-[-7%]">
               <motion.div variants={pop(1.7)}>
                 <div className="flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/80 px-3 py-2.5 shadow-[0_20px_50px_-20px_rgba(0,25,89,0.5)] backdrop-blur-md animate-float sm:gap-3 sm:px-4 sm:py-3">
                   <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-b from-[#4C7DFE] to-[#001959] text-white sm:h-10 sm:w-10">
@@ -305,7 +305,7 @@ const Hero = () => {
                 </div>
               </motion.div>
             </motion.div>
-            <motion.div style={{ x: frontX, y: frontY }} className="absolute right-[-6%] top-[16%] z-20 sm:right-[-4%]">
+            <motion.div style={{ x: frontX, y: frontY }} className="absolute right-[-18%] top-[6%] z-20 sm:right-[-10%] sm:top-[14%] lg:right-[-4%] xl:right-[-7%]">
               <motion.div variants={pop(1.85)}>
                 <div className="flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/80 px-3 py-2.5 shadow-[0_20px_50px_-20px_rgba(0,25,89,0.5)] backdrop-blur-md animate-float [animation-delay:-2.5s] sm:gap-3 sm:px-4 sm:py-3">
                   <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-b from-[#4C7DFE] to-[#001959] text-white sm:h-10 sm:w-10">
