@@ -24,7 +24,6 @@
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
-    "@react-three/fiber": "^9.8.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -44,7 +43,6 @@
     "sonner": "^2.0.5",
     "tailwind-merge": "^3.3.1",
     "tailwind-variants": "^1.0.0",
-    "three": "^0.187.0",
     "vaul": "^1.1.2",
     "zod": "^3.25.63"
   },
@@ -55,7 +53,6 @@
     "@types/nodemailer": "^8.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.187.0",
     "eslint": "^9",
     "eslint-config-next": "^15.5.29",
     "tailwindcss": "^4",
