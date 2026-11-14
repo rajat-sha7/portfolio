@@ -27,7 +27,7 @@ const Footer = () => {
         <div className="absolute -top-[60%] left-[20%] h-[90%] w-[60%] rounded-full bg-[#4C7DFE]/20 blur-[130px] animate-aurora" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#8EAAFF]/70 to-transparent" />
       </div>
-      <div className="relative text-white py-12 md:py-20 px-4 sm:px-8 md:px-20 w-full max-w-[1440px] mx-auto">
+      <div className="relative text-white py-12 md:py-20 px-4 sm:px-6 lg:px-8 w-full max-w-[1344px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 md:mb-[54px] gap-6 md:gap-0">
           <SectionHeading
             eyebrow="Say hello"
@@ -37,7 +37,7 @@ const Footer = () => {
           />
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 400, damping: 22 }} className="w-full sm:w-auto">
-          <Button asChild className="relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_14px_34px_-10px_rgba(76,125,254,1)] font-bruno-ace font-normal text-lg sm:text-xl md:text-[24px] leading-[140%] tracking-0 bg-gradient-to-b from-[#4C7DFE] to-[#001959] w-full sm:w-[200px] md:w-[242px] h-12 sm:h-14 md:h-[64px] rounded-[50px] flex items-center justify-center">
+          <Button asChild className="relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_14px_34px_-10px_rgba(76,125,254,1)] font-plus-jakarta font-bold text-base md:text-lg leading-[140%] tracking-0 bg-gradient-to-b from-[#4C7DFE] to-[#001959] w-full sm:w-[200px] md:w-[242px] h-12 sm:h-14 md:h-[64px] rounded-[50px] flex items-center justify-center">
             <Link href="#contact" className="group/btn">
               <span className="text-white inline-flex items-center">Hire me</span>
               <Image src="/Footer/btnarrow.svg" alt="" width={24} height={24} className="w-6 h-6 md:w-[30px] md:h-[30px] transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
@@ -59,12 +59,12 @@ const Footer = () => {
               />
               <span className="font-bruno-ace font-normal text-xl md:text-[28.76px] leading-[120%] tracking-0">RajatSharma</span>
             </div>
-            <p style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }} className="text-muted-foreground max-w-full md:max-w-[628px] font-plus-jakarta-display font-normal text-sm md:text-[16px] leading-[150%] tracking-0">
+            <p className="text-[#98A2B3] max-w-full md:max-w-[628px] font-plus-jakarta-display font-normal text-sm md:text-[16px] leading-[150%] tracking-0">
               Senior Fullstack AI Developer with 4 years of experience in React, Next.js, Vue, Nuxt and SvelteKit. I build fast, accessible web apps powered by headless CMS and AI-assisted workflows.
             </p>
 
             {/* Social Links */}
-            <Stagger gap={0.1} delay={0.3} className="flex space-x-3 mt-6 md:mt-[50px]">
+            <Stagger gap={0.1} delay={0.3} className="flex space-x-3 mt-6 md:mt-8">
               {socialLinks.map(({ icon: Icon, label, href }) => (
                 <RiseItem key={label}>
                   <motion.a
@@ -84,19 +84,16 @@ const Footer = () => {
             </Stagger>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 min-w-0 shrink-0">
+          <div className="grid grid-cols-2 gap-6 md:gap-12 min-w-0 shrink-0">
             {/* Navigation */}
             <div>
               <h3 className="font-bruno-ace font-normal text-base md:text-[16px] leading-[150%] tracking-0 mb-3 md:mb-4">Navigation</h3>
-              <ul className="space-y-2 md:space-y-3">
+              <ul className="space-y-3">
                 {navigationLinks.map((link, index) => (
-                  <li key={index}>
+                  <li key={index} className="leading-6">
                     <Link
                       href={link.href}
-                      className="text-muted-foreground hover:text-white font-plus-jakarta-display text-sm md:text-[16px] bg-[linear-gradient(#8EAAFF,#8EAAFF)] bg-no-repeat bg-[length:0%_1px] bg-[position:0_100%] hover:bg-[length:100%_1px] transition-[background-size,color] duration-300 pb-0.5"
-                      style={{
-                        fontFamily: "Plus Jakarta Sans, sans-serif",
-                      }}
+                      className="text-[#98A2B3] hover:text-white font-plus-jakarta-display text-sm md:text-[16px] bg-[linear-gradient(#8EAAFF,#8EAAFF)] bg-no-repeat bg-[length:0%_1px] bg-[position:0_100%] hover:bg-[length:100%_1px] transition-[background-size,color] duration-300 pb-0.5"
                     >
                       {link.name}
                     </Link>
@@ -108,34 +105,36 @@ const Footer = () => {
             {/* Contact */}
             <div>
               <h3 className="font-bruno-ace font-normal text-base md:text-[16px] leading-[150%] tracking-0 mb-3 md:mb-4">Contact</h3>
-              <div className="space-y-2 md:space-y-3">
+              <ul className="space-y-3">
                 {socialLinks.map(({ label, href }) => (
-                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="block w-fit text-muted-foreground hover:text-white font-plus-jakarta-display text-sm md:text-[16px] bg-[linear-gradient(#8EAAFF,#8EAAFF)] bg-no-repeat bg-[length:0%_1px] bg-[position:0_100%] hover:bg-[length:100%_1px] transition-[background-size,color] duration-300 pb-0.5">
+                  <li key={label} className="leading-6">
+                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#98A2B3] hover:text-white font-plus-jakarta-display text-sm md:text-[16px] bg-[linear-gradient(#8EAAFF,#8EAAFF)] bg-no-repeat bg-[length:0%_1px] bg-[position:0_100%] hover:bg-[length:100%_1px] transition-[background-size,color] duration-300 pb-0.5">
                     {label}
                   </a>
+                  </li>
                 ))}
-                <p className="text-muted-foreground font-plus-jakarta-display text-sm md:text-[16px]">India</p>
-              </div>
+                <li className="leading-6 text-[#98A2B3] font-plus-jakarta-display text-sm md:text-[16px]">India</li>
+              </ul>
             </div>
           </div>
         </Rise>
 
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
-          <p style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }} className="text-muted-foreground font-plus-jakarta-display font-normal text-xs sm:text-sm md:text-[16px] leading-[150%] text-center md:text-left">
+          <p className="text-[#98A2B3] font-plus-jakarta-display font-normal text-xs sm:text-sm md:text-[16px] leading-[150%] text-center md:text-left">
             Copyright© {new Date().getFullYear()} Rajat Sharma. All Rights Reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-            <Link style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 md:gap-4">
+            <Link
               href="#"
-              className="text-muted-foreground hover:text-white transition-colors font-plus-jakarta-display font-normal text-xs sm:text-sm md:text-[16px] leading-[150%]"
+              className="text-[#98A2B3] hover:text-white transition-colors font-plus-jakarta-display font-normal text-xs sm:text-sm md:text-[16px] leading-[150%]"
             >
               User Terms & Conditions
             </Link>
-            <span className="text-muted-foreground hidden md:block">|</span>
-            <Link style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+            <span className="text-[#98A2B3] hidden md:block">|</span>
+            <Link
               href="#"
-              className="text-muted-foreground hover:text-white transition-colors font-plus-jakarta-display font-normal text-xs sm:text-sm md:text-[16px] leading-[150%]"
+              className="text-[#98A2B3] hover:text-white transition-colors font-plus-jakarta-display font-normal text-xs sm:text-sm md:text-[16px] leading-[150%]"
             >
               Privacy Policy
             </Link>

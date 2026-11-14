@@ -30,12 +30,12 @@ const About = () => {
   let wordIndex = 0;
 
   return (
-    <div className="px-5">
+    <div className="px-4 sm:px-6 lg:px-8">
       <motion.section
         ref={ref}
         id="about"
         style={{ scale }}
-        className="relative mx-auto w-full max-w-[1280px] overflow-hidden rounded-[16px] bg-[#00070E] text-white will-change-transform md:rounded-[28px]"
+        className="relative mx-auto w-full max-w-[1280px] overflow-hidden rounded-[16px] bg-[#00070E] text-white will-change-transform md:rounded-[28px] dark:bg-[#070E1B] dark:ring-1 dark:ring-white/10"
       >
         {/* Glow and grid inside the dark card */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -63,7 +63,7 @@ const About = () => {
             <Stagger gap={0.05} delay={0.2} className="mt-10 flex flex-wrap justify-center gap-2 sm:gap-3 md:mt-14">
               {tools.map((t) => (
                 <RiseItem key={t}>
-                  <span className="inline-block rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 font-plus-jakarta text-xs font-semibold text-[#DCE5FF] backdrop-blur-sm transition-colors duration-300 hover:border-[#8EAAFF] hover:bg-[#4C7DFE]/25 sm:px-4 sm:py-2 sm:text-sm">
+                  <span className="inline-block rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 font-plus-jakarta text-xs font-semibold text-[#DCE5FF] transition-colors duration-300 hover:border-[#8EAAFF] hover:bg-[#4C7DFE]/25 sm:px-4 sm:py-2 sm:text-sm">
                     {t}
                   </span>
                 </RiseItem>

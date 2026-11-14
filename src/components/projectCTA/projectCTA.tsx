@@ -37,7 +37,7 @@ const ProjectCTA = () => {
   };
 
   return (
-    <div className="px-5 pb-12 md:pb-24">
+    <div className="px-4 pb-12 sm:px-6 md:pb-24 lg:px-8">
       <section
         id="contact"
         className="relative mx-auto w-full max-w-[1280px] overflow-hidden rounded-[20px] bg-[#001959] md:rounded-[28px]"
@@ -83,7 +83,7 @@ const ProjectCTA = () => {
                   />
                   <Input
                     type="email"
-                    placeholder="Your email address"
+                    placeholder="Your email"
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
@@ -91,7 +91,7 @@ const ProjectCTA = () => {
                     }}
                     aria-label="Your email address"
                     aria-describedby="contact-status"
-                    className="h-12 w-full rounded-full border-0 bg-transparent pl-12 pr-[112px] font-plus-jakarta text-sm text-[#00070E] shadow-none placeholder:text-[#667085] focus-visible:ring-0 md:h-14 md:pl-16 md:pr-[160px] md:text-base"
+                    className="h-12 w-full rounded-full border-0 bg-transparent pl-12 pr-[112px] font-plus-jakarta text-base text-[#00070E] shadow-none placeholder:text-[#667085] focus-visible:ring-0 md:h-14 md:pl-16 md:pr-[160px] md:text-base"
                     required
                   />
                   <motion.div

@@ -19,37 +19,9 @@ import { ArrowUpRight, Briefcase, FolderGit2 } from "lucide-react";
 // Slow, soft ease-out used for every hero animation
 const ease = [0.16, 1, 0.3, 1] as const;
 
-// Each piece rises into place while going from blurred to sharp.
-// `custom` is the delay in seconds, so the pieces play as one sequence.
-const rise: Variants = {
-  hidden: { opacity: 0, y: 28, filter: "blur(12px)" },
-  show: (delay: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 1.1, ease, delay },
-  }),
-};
-
-const word: Variants = {
-  hidden: { opacity: 0, y: "0.55em", filter: "blur(14px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 1.1, ease } },
-};
-
-const line = (delay: number): Variants => ({
-  hidden: {},
-  show: { transition: { staggerChildren: 0.09, delayChildren: delay } },
-});
-
-const disc: Variants = {
-  hidden: { opacity: 0, scale: 0.6 },
-  show: { opacity: 1, scale: 1, transition: { duration: 1.4, ease, delay: 0.5 } },
-};
-
-const photo: Variants = {
-  hidden: { opacity: 0, y: 60, scale: 1.08, filter: "blur(16px)" },
-  show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: 1.5, ease, delay: 0.75 } },
-};
+// The text, disc and photo enter with CSS animations (see globals.css) so they
+// start at first paint instead of waiting for JavaScript. This sets each delay.
+const delay = (seconds: number) => ({ animationDelay: `${seconds}s` });
 
 // Ring outlines draw themselves around the photo
 const draw = (delay: number): Variants => ({
@@ -67,12 +39,12 @@ const pop = (delay: number): Variants => ({
   show: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 240, damping: 18, delay } },
 });
 
-const gradientText = "bg-clip-text text-transparent bg-gradient-to-b from-[#4C7DFE] to-[#001959]";
+const gradientText = "bg-clip-text text-transparent bg-gradient-to-b from-grad-start to-grad-end";
 
 // Tech labels that travel around the outer ring
 const orbitChips = [
   { label: "React", dot: "#61DAFB" },
-  { label: "Next.js", dot: "#111111" },
+  { label: "Next.js", dot: "var(--ink)" },
   { label: "Vue", dot: "#42B883" },
   { label: "SvelteKit", dot: "#FF3E00" },
   { label: "TypeScript", dot: "#3178C6" },
@@ -88,28 +60,48 @@ const orbitChips = [
 
 const rotatingStack = ["React", "Next.js", "Vue & Nuxt", "SvelteKit", "TypeScript", "Headless CMS"];
 
-// Splits text into words that animate in one after another
-const Words = ({ text, className = "" }: { text: string; className?: string }) => (
+// Splits text into words that animate in one after another.
+// `start` is the position of the first word in the whole heading.
+const Words = ({ text, start, className = "" }: { text: string; start: number; className?: string }) => (
   <>
     {text.split(" ").map((w, i) => (
       <Fragment key={i}>
-        <motion.span variants={word} className={`inline-block will-change-transform ${className}`}>
+        <span style={delay(+(0.3 + (start + i) * 0.09).toFixed(2))} className={`inline-block animate-word-in ${className}`}>
           {w}
-        </motion.span>{" "}
+        </span>{" "}
       </Fragment>
     ))}
   </>
 );
 
-const Hero = () => {
-  const reduce = useReducedMotion();
-
-  // The word after "I build with" changes every couple of seconds
-  const [stackIndex, setStackIndex] = useState(0);
+// The word after "I build with" changes every couple of seconds.
+// Kept in its own component so the timer re-renders only this word, not the whole hero.
+const RotatingWord = () => {
+  const [index, setIndex] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setStackIndex((n) => (n + 1) % rotatingStack.length), 2200);
+    const t = setInterval(() => setIndex((n) => (n + 1) % rotatingStack.length), 2200);
     return () => clearInterval(t);
   }, []);
+  return (
+    <span aria-hidden className="inline-grid h-[1.5em] overflow-hidden align-bottom">
+      <AnimatePresence initial={false}>
+        <motion.span
+          key={rotatingStack[index]}
+          initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
+          animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+          exit={{ y: "-100%", opacity: 0, filter: "blur(6px)" }}
+          transition={{ duration: 0.45, ease }}
+          className="[grid-area:1/1] justify-self-start whitespace-nowrap font-bold text-blue-accent"
+        >
+          {rotatingStack[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+};
+
+const Hero = () => {
+  const reduce = useReducedMotion();
 
   // Mouse parallax: layers of the photo stage shift by different amounts for depth
   const mx = useMotionValue(0);
@@ -142,72 +134,56 @@ const Hero = () => {
   const stageY = useTransform(scrollY, [0, 700], reduce ? [0, 0] : [0, 40]);
 
   return (
-    <div className="pl-5 pr-5">
+    <div className="px-4 sm:px-6 lg:px-8">
       <MotionConfig reducedMotion="user">
       <section
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
         className="relative w-full max-w-[1440px] mx-auto overflow-hidden bg-background"
       >
-        {/* Background: slow drifting colour clouds over a faint grid */}
+        {/* Background: a faint grid */}
         <div aria-hidden className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_16%,#000_84%,transparent),linear-gradient(to_right,transparent,#000_7%,#000_93%,transparent)] [mask-composite:intersect]">
-          <div className="absolute -left-[10%] -top-[25%] h-[75%] w-[55%] rounded-full bg-[#4C7DFE]/25 blur-[110px] animate-aurora" />
-          <div className="absolute -right-[12%] top-[5%] h-[75%] w-[50%] rounded-full bg-[#8EAAFF]/35 blur-[120px] animate-aurora [animation-delay:-6s] [animation-duration:24s]" />
-          <div className="absolute -bottom-[35%] left-[28%] h-[60%] w-[45%] rounded-full bg-[#6C5CE7]/15 blur-[120px] animate-aurora [animation-delay:-12s]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(76,125,254,0.09)_1px,transparent_1px),linear-gradient(to_bottom,rgba(76,125,254,0.09)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_75%_70%_at_50%_45%,#000_15%,transparent_75%)]" />
         </div>
 
         <motion.div
           initial="hidden"
           animate="show"
-          className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 pb-14 pt-10 sm:px-6 md:pt-14 lg:min-h-[640px] lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-8 lg:pb-24 lg:pt-16"
+          className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-2 pb-16 pt-10 sm:px-6 md:pt-14 lg:min-h-[640px] lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-8 lg:pb-24 lg:pt-16"
         >
           {/* Text column */}
           <motion.div style={{ y: textY, opacity: textOpacity }} className="text-center lg:text-left will-change-transform">
-            <motion.div variants={rise} custom={0.1} className="inline-flex items-center gap-2.5 rounded-full border border-[#4C7DFE]/40 bg-white/70 px-4 py-2 shadow-[0_8px_30px_-12px_rgba(76,125,254,0.6)] backdrop-blur-sm">
+            <div style={delay(0.1)} className="inline-flex animate-rise-in items-center gap-2.5 rounded-full border border-[#4C7DFE]/40 bg-surface px-4 py-2 shadow-[0_8px_30px_-12px_rgba(76,125,254,0.6)]">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
               </span>
-              <span className="font-plus-jakarta text-xs font-semibold tracking-wide text-[#001959] sm:text-sm">
+              <span className="font-plus-jakarta text-xs font-semibold tracking-wide text-ink-navy sm:text-sm">
                 Available for new projects
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1 variants={line(0.3)} className="mt-6 font-normal leading-[1.15] text-foreground text-[22px] min-[390px]:text-[24px] sm:text-[40px] md:text-[46px] lg:text-[34px] xl:text-[46px]">
-              <Words text="I'm" />
-              <Words text="Rajat Sharma," className="text-blue-accent" />
+            <h1 className="mt-6 font-normal leading-[1.15] text-foreground text-[22px] min-[360px]:text-[24px] min-[390px]:text-[28px] sm:text-[40px] md:text-[46px] lg:text-[34px] xl:text-[46px]">
+              <Words text="I'm" start={0} />
+              <Words text="Rajat Sharma," start={1} className="text-blue-accent" />
               <br />
-              <Words text="Fullstack AI" className={gradientText} />
+              <Words text="Fullstack AI" start={3} className={gradientText} />
               <br />
-              <Words text="Developer" className={gradientText} />
-            </motion.h1>
+              <Words text="Developer" start={5} className={gradientText} />
+            </h1>
 
-            <motion.p variants={rise} custom={0.95} className="mt-5 font-plus-jakarta text-base font-medium text-[#00070E] sm:text-lg">
+            <p style={delay(0.95)} className="mt-5 animate-rise-in font-plus-jakarta text-base font-medium text-ink sm:text-lg">
               I build with{" "}
               <span className="sr-only">React, Next.js, Vue, Nuxt, SvelteKit, TypeScript and headless CMS.</span>
-              <span aria-hidden className="inline-grid h-[1.5em] overflow-hidden align-bottom">
-                <AnimatePresence initial={false}>
-                  <motion.span
-                    key={rotatingStack[stackIndex]}
-                    initial={{ y: "100%", opacity: 0, filter: "blur(6px)" }}
-                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                    exit={{ y: "-100%", opacity: 0, filter: "blur(6px)" }}
-                    transition={{ duration: 0.45, ease }}
-                    className="[grid-area:1/1] justify-self-start whitespace-nowrap font-bold text-blue-accent"
-                  >
-                    {rotatingStack[stackIndex]}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-            </motion.p>
+              <RotatingWord />
+            </p>
 
-            <motion.p variants={rise} custom={1.05} className="mx-auto mt-4 max-w-[520px] font-plus-jakarta text-sm leading-[1.65] text-[#344054] sm:text-base lg:mx-0">
+            <p style={delay(1.05)} className="mx-auto mt-4 animate-rise-in max-w-[520px] font-plus-jakarta text-sm leading-[1.65] text-body sm:text-base lg:mx-0">
               Senior fullstack AI developer building fast, accessible and
               SEO-friendly web apps, powered by headless CMS and AI.
-            </motion.p>
+            </p>
 
-            <motion.div variants={rise} custom={1.2} className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:justify-start">
+            <div style={delay(1.2)} className="mt-8 flex animate-rise-in flex-wrap items-center justify-center gap-3 sm:gap-4 lg:justify-start">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 400, damping: 22 }}>
                 <Button asChild className="relative h-12 overflow-hidden rounded-full bg-gradient-to-b from-[#4C7DFE] to-[#1E3FAE] px-8 shadow-[0_14px_34px_-12px_rgba(76,125,254,0.9)] transition-shadow duration-300 hover:shadow-[0_18px_40px_-10px_rgba(76,125,254,1)] sm:h-14 sm:px-10">
                   <Link href="#contact">
@@ -219,22 +195,17 @@ const Hero = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 400, damping: 22 }}>
                 <Link
                   href="#resume"
-                  className="group inline-flex h-12 items-center gap-2 rounded-full border border-[#001959]/20 bg-white/70 px-6 font-plus-jakarta text-sm font-bold text-[#001959] backdrop-blur-sm transition-colors duration-300 hover:border-[#4C7DFE] hover:text-[#4C7DFE] sm:h-14 sm:px-8 sm:text-base"
+                  className="group inline-flex h-12 items-center gap-2 rounded-full border border-ink-navy/20 bg-surface px-6 font-plus-jakarta text-sm font-bold text-ink-navy transition-colors duration-300 hover:border-[#4C7DFE] hover:text-[#4C7DFE] sm:h-14 sm:px-8 sm:text-base"
                 >
                   View projects
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 sm:h-5 sm:w-5" />
                 </Link>
               </motion.div>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Photo stage */}
-          <motion.div style={{ scale: stageScale, y: stageY }} className="relative mx-auto aspect-square w-[82%] max-w-[360px] sm:max-w-[440px] lg:w-full lg:max-w-[520px] will-change-transform">
-            {/* Soft pulsing glow */}
-            <motion.div variants={fade(0.4)} className="absolute inset-[8%]">
-              <div className="h-full w-full rounded-full bg-[#4C7DFE] blur-3xl animate-glow" />
-            </motion.div>
-
+          <motion.div style={{ scale: stageScale, y: stageY }} className="relative mx-auto aspect-square w-[86%] max-w-[360px] sm:max-w-[440px] lg:w-full lg:max-w-[520px] will-change-transform">
             {/* Rings: one draws itself, one slowly turns, and a bright streak circles the edge */}
             <motion.div style={{ x: backX, y: backY }} className="absolute inset-0">
               <svg aria-hidden viewBox="0 0 400 400" className="h-full w-full overflow-visible">
@@ -250,20 +221,20 @@ const Hero = () => {
                     <circle cx="200" cy="200" r="196" fill="none" stroke="url(#hero-streak)" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="120 1112" />
                   </g>
                   <g className="animate-orbit [animation-direction:reverse] [animation-duration:80s]" style={{ transformOrigin: "200px 200px" }}>
-                    <circle cx="200" cy="200" r="166" fill="none" stroke="#001959" strokeOpacity="0.3" strokeWidth="1.5" strokeDasharray="2 10" strokeLinecap="round" />
+                    <circle cx="200" cy="200" r="166" fill="none" stroke="var(--ink-navy)" strokeOpacity="0.3" strokeWidth="1.5" strokeDasharray="2 10" strokeLinecap="round" />
                     <circle cx="200" cy="34" r="5" fill="#4C7DFE" />
                     <circle cx="366" cy="200" r="3.5" fill="#8EAAFF" />
-                    <circle cx="82.6" cy="317.4" r="4" fill="#001959" />
+                    <circle cx="82.6" cy="317.4" r="4" fill="var(--ink-navy)" />
                   </g>
                 </motion.g>
               </svg>
             </motion.div>
 
-            {/* Blue disc with the photo rising out of it */}
+            {/* Neutral disc with the photo rising out of it */}
             <motion.div style={{ x: midX, y: midY }} className="absolute inset-0">
-              <motion.div variants={disc} className="absolute inset-[17%] rounded-full bg-gradient-to-b from-[#4C7DFE] to-[#001959] shadow-[0_40px_80px_-30px_rgba(0,25,89,0.75),inset_0_2px_0_rgba(255,255,255,0.35)]" />
+              <div style={delay(0.5)} className="absolute inset-[17%] animate-disc-in rounded-full bg-gradient-to-b from-[#F2F4F7] to-[#D0D5DD] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.35),inset_0_2px_0_rgba(255,255,255,0.6)] dark:from-[#1B2A45] dark:to-[#0C1526] dark:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.12)]" />
               <div className="absolute bottom-[17%] left-[17%] right-[17%] top-[5%] overflow-hidden rounded-b-[50%_42.3%]">
-                <motion.div variants={photo} className="relative h-full w-full origin-bottom">
+                <div style={delay(0.75)} className="relative h-full w-full origin-bottom animate-photo-in">
                   <Image
                     src="/avatar.png"
                     alt="Rajat Sharma"
@@ -272,7 +243,7 @@ const Hero = () => {
                     className="object-cover object-top"
                     priority
                   />
-                </motion.div>
+                </div>
               </div>
             </motion.div>
 
@@ -282,7 +253,7 @@ const Hero = () => {
                 {orbitChips.map((chip, i) => (
                   <div key={chip.label} style={{ left: chip.left, top: chip.top }} className="absolute -translate-x-1/2 -translate-y-1/2">
                     <motion.div variants={pop(1.3 + i * 0.1)}>
-                      <span className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/70 bg-white/85 px-2.5 py-1 font-plus-jakarta text-[10px] font-semibold text-[#001959] shadow-[0_10px_26px_-10px_rgba(0,25,89,0.45)] backdrop-blur-sm animate-orbit [animation-direction:reverse] sm:px-3 sm:py-1.5 sm:text-xs">
+                      <span className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/70 dark:border-white/10 bg-surface/95 px-2.5 py-1 font-plus-jakarta text-[10px] font-semibold text-ink-navy shadow-[0_10px_26px_-10px_rgba(0,25,89,0.45)] animate-orbit [animation-direction:reverse] sm:px-3 sm:py-1.5 sm:text-xs">
                         <span className="h-2 w-2 rounded-full" style={{ background: chip.dot }} />
                         {chip.label}
                       </span>
@@ -293,28 +264,25 @@ const Hero = () => {
             </motion.div>
 
             {/* Floating stat cards (closest layer, moves the most with the mouse) */}
-            <motion.div style={{ x: frontX, y: frontY }} className="absolute bottom-[6%] left-[-18%] z-20 sm:bottom-[10%] sm:left-[-10%] lg:left-[-4%] xl:left-[-7%]">
+            <motion.div style={{ x: frontX, y: frontY }} className="absolute bottom-[-6%] left-[-10%] z-20 sm:bottom-[10%] sm:left-[-10%] lg:left-[-4%] xl:left-[-7%]">
               <motion.div variants={pop(1.7)}>
-                <div className="flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/80 px-3 py-2.5 shadow-[0_20px_50px_-20px_rgba(0,25,89,0.5)] backdrop-blur-md animate-float sm:gap-3 sm:px-4 sm:py-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-b from-[#4C7DFE] to-[#001959] text-white sm:h-10 sm:w-10">
-                    <Briefcase className="h-4 w-4 sm:h-5 sm:w-5" />
+                <div className="flex items-center gap-2 rounded-xl border border-white/70 dark:border-white/10 bg-surface/95 px-2.5 py-2 sm:rounded-2xl shadow-[0_20px_50px_-20px_rgba(0,25,89,0.5)] animate-float sm:gap-3 sm:px-4 sm:py-3">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-b from-[#4C7DFE] to-[#001959] text-white sm:h-10 sm:w-10 sm:rounded-xl">
+                    <Briefcase className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
                   </span>
-                  <span>
-                    <span className="block font-bruno-ace text-base leading-none text-[#00070E] sm:text-xl">4+ Years</span>
-                    <span className="mt-1 block font-plus-jakarta text-[10px] text-[#344054] sm:text-xs">Experience</span>
-                  </span>
+                  <span className="font-bruno-ace text-[13px] leading-none text-ink sm:text-xl">Experienced</span>
                 </div>
               </motion.div>
             </motion.div>
-            <motion.div style={{ x: frontX, y: frontY }} className="absolute right-[-18%] top-[6%] z-20 sm:right-[-10%] sm:top-[14%] lg:right-[-4%] xl:right-[-7%]">
+            <motion.div style={{ x: frontX, y: frontY }} className="absolute right-[-10%] top-[-5%] z-20 sm:right-[-10%] sm:top-[14%] lg:right-[-4%] xl:right-[-7%]">
               <motion.div variants={pop(1.85)}>
-                <div className="flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/80 px-3 py-2.5 shadow-[0_20px_50px_-20px_rgba(0,25,89,0.5)] backdrop-blur-md animate-float [animation-delay:-2.5s] sm:gap-3 sm:px-4 sm:py-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-b from-[#4C7DFE] to-[#001959] text-white sm:h-10 sm:w-10">
-                    <FolderGit2 className="h-4 w-4 sm:h-5 sm:w-5" />
+                <div className="flex items-center gap-2 rounded-xl border border-white/70 dark:border-white/10 bg-surface/95 px-2.5 py-2 sm:rounded-2xl shadow-[0_20px_50px_-20px_rgba(0,25,89,0.5)] animate-float [animation-delay:-2.5s] sm:gap-3 sm:px-4 sm:py-3">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-b from-[#4C7DFE] to-[#001959] text-white sm:h-10 sm:w-10 sm:rounded-xl">
+                    <FolderGit2 className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
                   </span>
                   <span>
-                    <span className="block font-bruno-ace text-base leading-none text-[#00070E] sm:text-xl">25+</span>
-                    <span className="mt-1 block font-plus-jakarta text-[10px] text-[#344054] sm:text-xs">Projects on GitHub</span>
+                    <span className="block font-bruno-ace text-sm leading-none text-ink sm:text-xl">25+</span>
+                    <span className="mt-1 block font-plus-jakarta text-[10px] text-body sm:text-xs">Projects on GitHub</span>
                   </span>
                 </div>
               </motion.div>
@@ -326,7 +294,7 @@ const Hero = () => {
             variants={fade(2.2)}
             href="#about"
             aria-label="Scroll to About"
-            className="absolute bottom-6 left-1/2 hidden h-10 w-6 -translate-x-1/2 justify-center rounded-full border-2 border-[#001959]/40 pt-1.5 lg:flex"
+            className="absolute bottom-6 left-1/2 hidden h-10 w-6 -translate-x-1/2 justify-center rounded-full border-2 border-ink-navy/40 pt-1.5 lg:flex"
           >
             <span className="h-2 w-1 rounded-full bg-[#4C7DFE] animate-scroll-dot" />
           </motion.a>

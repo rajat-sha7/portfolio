@@ -1,16 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Bruno_Ace } from "next/font/google";
+import { Bruno_Ace, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 import { ReactLenis } from 'lenis/react';
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { site, siteUrl } from "@/lib/site";
+import { ThemeProvider } from "next-themes";
+import ThemeToggle from "@/components/ThemeToggle";
 
+// Both fonts are self-hosted by next/font, so no render-blocking request to Google Fonts
 const brunoAce = Bruno_Ace({
-  weight: ['400'], // Fixed to only include '400' as per the type requirement
+  weight: ['400'],
   subsets: ["latin"],
-  variable: "--font-bruno-ace",
+  variable: "--font-bruno",
+  display: "swap",
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -77,20 +87,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={brunoAce.className}>
+    <html lang="en" suppressHydrationWarning className={`${brunoAce.variable} ${plusJakarta.variable} ${brunoAce.className}`}>
       <head>
         <link rel="icon" href="/header_logo.svg" sizes="any" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace:wght@400&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <ReactLenis root options={{ lerp: 0.1, anchors: { offset: -96 } }}>
-          <Header />
-          {children}
-          <Footer />
-        </ReactLenis>
+        {/* Follows the device's light/dark setting until the visitor picks one with the toggle */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ReactLenis root options={{ lerp: 0.1, anchors: { offset: -96 } }}>
+            <Header />
+            {children}
+            <Footer />
+          </ReactLenis>
+          <ThemeToggle />
+        </ThemeProvider>
       </body>
     </html>
   );

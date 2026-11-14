@@ -63,7 +63,7 @@ const WorkExperience = () => {
           {areas.map((area, i) => (
             <motion.div key={area.title} variants={rise} className={area.span}>
               <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 22 }} className="h-full">
-                <SpotlightCard className="h-full overflow-hidden rounded-3xl border border-[#E4E7EC] bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-[border-color,box-shadow] duration-500 hover:border-[#4C7DFE]/50 hover:shadow-[0_30px_60px_-30px_rgba(76,125,254,0.45)] md:p-8">
+                <SpotlightCard className="h-full overflow-hidden rounded-3xl border border-line bg-surface p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-[border-color,box-shadow] duration-500 hover:border-[#4C7DFE]/50 hover:shadow-[0_30px_60px_-30px_rgba(76,125,254,0.45)] md:p-8">
                   {/* Accent line that grows across the top on hover */}
                   <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-gradient-to-r from-[#4C7DFE] to-[#001959] transition-transform duration-500 ease-out group-hover/spot:scale-x-100" />
 
@@ -71,20 +71,20 @@ const WorkExperience = () => {
                     <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-b from-[#4C7DFE] to-[#001959] text-white shadow-[0_12px_24px_-10px_rgba(76,125,254,0.9)] transition-transform duration-500 group-hover/spot:-rotate-6 group-hover/spot:scale-110 md:h-14 md:w-14">
                       <area.icon className="h-6 w-6 md:h-7 md:w-7" />
                     </span>
-                    <span className="font-bruno-ace text-3xl text-[#E4E7EC] transition-colors duration-500 group-hover/spot:text-[#4C7DFE]/40 md:text-4xl">
+                    <span className="font-bruno-ace text-3xl text-ghost transition-colors duration-500 group-hover/spot:text-[#4C7DFE]/40 md:text-4xl">
                       0{i + 1}
                     </span>
                   </div>
 
-                  <h3 className="relative mt-6 font-bruno-ace text-xl font-normal leading-[1.25] text-[#00070E] md:text-2xl">
+                  <h3 className="relative mt-6 font-bruno-ace text-xl font-normal leading-[1.25] text-ink md:text-2xl">
                     {area.title}
                   </h3>
                   <p className="relative mt-1 font-plus-jakarta text-sm font-bold text-[#4C7DFE] md:text-base">{area.subtitle}</p>
-                  <p className="relative mt-3 font-plus-jakarta text-sm leading-[1.65] text-[#475467]">{area.description}</p>
+                  <p className="relative mt-3 font-plus-jakarta text-sm leading-[1.65] text-body-soft">{area.description}</p>
 
                   <div className="relative mt-5 flex flex-wrap gap-2">
                     {area.tags.map((tag) => (
-                      <span key={tag} className="rounded-full bg-[#F2F4F7] px-3 py-1 font-plus-jakarta text-xs font-semibold text-[#344054] transition-colors duration-300 group-hover/spot:bg-[#4C7DFE]/10 group-hover/spot:text-[#1E3FAE]">
+                      <span key={tag} className="rounded-full bg-surface-muted px-3 py-1 font-plus-jakarta text-xs font-semibold text-body transition-colors duration-300 group-hover/spot:bg-[#4C7DFE]/10 group-hover/spot:text-accent-ink">
                         {tag}
                       </span>
                     ))}
