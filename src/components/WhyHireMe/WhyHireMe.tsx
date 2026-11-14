@@ -17,30 +17,30 @@ const reasons = [
   'AI-assisted workflows that speed up delivery',
 ];
 
-const gradientNumber = 'bg-clip-text text-transparent bg-gradient-to-b from-[#4C7DFE] to-[#001959]';
+const gradientNumber = 'bg-clip-text text-transparent bg-gradient-to-b from-grad-start to-grad-end';
 
 const WhyHireMe = () => {
   return (
-    <section className="relative overflow-hidden bg-[#F2F4F7] px-4 py-16 sm:px-6 md:py-[110px] lg:px-8">
+    <section className="relative overflow-hidden bg-surface-muted px-4 py-16 sm:px-6 md:py-[120px] lg:px-8">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -left-[8%] top-[10%] h-[70%] w-[40%] rounded-full bg-[#4C7DFE]/15 blur-[120px] animate-aurora" />
         <div className="absolute -right-[8%] bottom-[0%] h-[70%] w-[40%] rounded-full bg-[#8EAAFF]/25 blur-[120px] animate-aurora [animation-delay:-8s]" />
       </div>
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="relative mx-auto grid max-w-[1280px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Text */}
         <div>
           <SectionHeading align="left" eyebrow="Why me" parts={[{ text: 'Why' }, { text: 'Hire Me?', accent: true }]} />
 
           <Rise delay={0.2}>
-            <p className="mt-5 font-plus-jakarta text-sm leading-[1.7] text-[#344054] sm:text-base">
+            <p className="mt-5 font-plus-jakarta text-sm leading-[1.7] text-body sm:text-base">
               I build fast, accessible frontends that are easy for teams to maintain and for content editors to use. From server-rendered Next.js and Nuxt apps to headless CMS integrations with visual editing and previews, I care about Core Web Vitals, clean component architecture and shipping quickly, with AI-assisted workflows that speed up delivery without cutting corners.
             </p>
           </Rise>
 
           <motion.ul variants={stagger(0.12, 0.35)} initial="hidden" whileInView="show" viewport={viewport} className="mt-7 space-y-3">
             {reasons.map((reason) => (
-              <motion.li key={reason} variants={rise} className="flex items-center gap-3 font-plus-jakarta text-sm font-semibold text-[#00070E] sm:text-base">
+              <motion.li key={reason} variants={rise} className="flex items-center gap-3 font-plus-jakarta text-sm font-semibold text-ink sm:text-base">
                 {/* Tick draws itself */}
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-[#4C7DFE] to-[#001959]">
                   <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -61,7 +61,7 @@ const WhyHireMe = () => {
           {stats.map((stat, i) => (
             <motion.div key={stat.label} variants={rise} className={i === 0 ? 'col-span-2' : ''}>
               <motion.div whileHover={{ y: -6 }} transition={{ type: 'spring', stiffness: 300, damping: 22 }} className="h-full">
-                <SpotlightCard className="h-full overflow-hidden rounded-3xl border border-white bg-white/80 p-6 shadow-[0_24px_60px_-34px_rgba(0,25,89,0.45)] backdrop-blur-md md:p-8">
+                <SpotlightCard className="h-full overflow-hidden rounded-3xl border border-white bg-surface/90 dark:border-white/10 p-6 shadow-[0_24px_60px_-34px_rgba(0,25,89,0.45)] md:p-8">
                   {i === 0 && (
                     // Decorative rings turning slowly in the corner of the large card
                     <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 md:h-64 md:w-64">
@@ -76,7 +76,7 @@ const WhyHireMe = () => {
                   <div className={`relative mt-5 font-bruno-ace font-normal leading-none ${gradientNumber} ${i === 0 ? 'text-5xl md:text-7xl' : 'text-4xl md:text-5xl'}`}>
                     <CountUp value={stat.value} />
                   </div>
-                  <div className="relative mt-2 font-plus-jakarta text-sm font-semibold text-[#344054] md:text-base">{stat.label}</div>
+                  <div className="relative mt-2 font-plus-jakarta text-sm font-semibold text-body md:text-base">{stat.label}</div>
                 </SpotlightCard>
               </motion.div>
             </motion.div>

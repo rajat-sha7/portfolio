@@ -8,6 +8,7 @@ import ProjectCTA from "@/components/projectCTA/projectCTA";
 import { Portfolio } from "@/components/Portfolio/Portfolio";
 import SlidingBanner from "@/components/slidingBanner/SlidingBanner";
 import StructuredData from "@/components/StructuredData";
+import ScrollText from "@/components/ScrollText/ScrollText";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <SlidingBanner reverse />
       <Portfolio />
       <ProjectCTA />
+      <ScrollText />
     </main>
   );
 }

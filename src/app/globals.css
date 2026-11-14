@@ -6,12 +6,27 @@
 
 /* Site-specific tokens used by the components (fonts, brand colors, animations) */
 @theme {
-  --font-bruno-ace: "Bruno Ace", sans-serif;
-  --font-plus-jakarta: "Plus Jakarta Sans", sans-serif;
-  --font-plus-jakarta-display: "Plus Jakarta Sans", sans-serif;
-  --font-urbanist: "Plus Jakarta Sans", sans-serif;
+  --font-bruno-ace: var(--font-bruno), sans-serif;
+  --font-plus-jakarta: var(--font-jakarta), sans-serif;
+  --font-plus-jakarta-display: var(--font-jakarta), sans-serif;
+  --font-urbanist: var(--font-jakarta), sans-serif;
 
   --color-blue-accent: #4c7dfe;
+
+  /* Colours that change between light and dark mode (values are set in :root and .dark below) */
+  --color-ink: var(--ink);
+  --color-ink-navy: var(--ink-navy);
+  --color-body: var(--body);
+  --color-body-soft: var(--body-soft);
+  --color-faint: var(--faint);
+  --color-accent-ink: var(--accent-ink);
+  --color-ghost: var(--ghost);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-line: var(--line);
+  --color-grad-start: var(--grad-start);
+  --color-grad-end: var(--grad-end);
+  --color-watermark: var(--watermark);
   --color-portfolio-nav: #475467;
   --color-portfolio-nav-active: #00070e;
   --color-portfolio-card-hover: #e4e7ec;
@@ -25,6 +40,11 @@
   --animate-sheen: sheen 4.5s ease-in-out infinite;
   --animate-glow: glow 5s ease-in-out infinite;
   --animate-scroll-dot: scroll-dot 1.8s ease-in-out infinite;
+  /* Hero entrance: plain CSS so it starts at first paint instead of waiting for JavaScript */
+  --animate-rise-in: rise-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-word-in: word-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-disc-in: disc-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-photo-in: photo-in 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -61,6 +81,22 @@
   @keyframes scroll-dot {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(10px); opacity: 0; }
+  }
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(28px); filter: blur(12px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+  @keyframes word-in {
+    from { opacity: 0; transform: translateY(0.55em); filter: blur(14px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+  @keyframes disc-in {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes photo-in {
+    from { opacity: 0; transform: translateY(60px) scale(1.08); filter: blur(16px); }
+    to { opacity: 1; transform: none; filter: none; }
   }
   @keyframes fade-up {
     from { opacity: 0; transform: translateY(24px); }
@@ -117,6 +153,21 @@
 }
 
 :root {
+  /* Light mode */
+  --ink: #00070e;            /* headings */
+  --ink-navy: #001959;       /* navy labels */
+  --body: #344054;           /* body text */
+  --body-soft: #475467;
+  --faint: #667085;
+  --accent-ink: #1e3fae;     /* blue text on tinted chips */
+  --ghost: #e4e7ec;          /* large faded numbers */
+  --surface: #ffffff;        /* cards */
+  --surface-muted: #f2f4f7;  /* grey panels and chips */
+  --line: #e4e7ec;           /* borders */
+  --grad-start: #4c7dfe;     /* gradient headings, top */
+  --grad-end: #001959;       /* gradient headings, bottom */
+  --watermark: #eceef2;      /* giant name above the footer */
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -152,7 +203,22 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  color-scheme: dark;
+  --ink: #f2f5fa;
+  --ink-navy: #dce5ff;
+  --body: #c5ccd8;
+  --body-soft: #a8b1c0;
+  --faint: #8891a1;
+  --accent-ink: #b9cbff;
+  --ghost: rgb(255 255 255 / 0.12);
+  --surface: #0c1627;
+  --surface-muted: #111d33;
+  --line: rgb(255 255 255 / 0.1);
+  --grad-start: #dce5ff;
+  --grad-end: #4c7dfe;
+  --watermark: #0c1525;
+
+  --background: #040a14;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -193,8 +259,25 @@
     overflow-x: clip;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Headings break into even lines; paragraphs avoid a lone last word */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: #4c7dfe;
+    color: #fff;
+  }
+  /* Clear keyboard focus ring in the brand colour */
+  :focus-visible {
+    outline: 2px solid #4c7dfe;
+    outline-offset: 3px;
   }
   section[id] {
     scroll-margin-top: 96px;

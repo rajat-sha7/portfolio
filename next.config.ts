@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Keep the dev-only Next.js badge out of the bottom-left corner, where the theme toggle sits
+  devIndicators: { position: 'bottom-right' },
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',

@@ -31,7 +31,7 @@ export const stagger = (gap = 0.1, delay = 0): Variants => ({
   show: { transition: { staggerChildren: gap, delayChildren: delay } },
 });
 
-export const gradientText = "bg-clip-text text-transparent bg-gradient-to-b from-[#4C7DFE] to-[#001959]";
+export const gradientText = "bg-clip-text text-transparent bg-gradient-to-b from-grad-start to-grad-end";
 export const gradientTextOnDark = "bg-clip-text text-transparent bg-gradient-to-b from-[#B9CBFF] to-[#4C7DFE]";
 
 type RiseProps = { children: ReactNode; className?: string; delay?: number };
@@ -84,7 +84,7 @@ export function SectionHeading({ eyebrow, parts, align = "center", tone = "light
       <motion.span
         variants={rise}
         className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 font-plus-jakarta text-[11px] font-bold uppercase tracking-[0.2em] sm:text-xs ${
-          dark ? "border-white/15 bg-white/5 text-[#B9CBFF]" : "border-[#4C7DFE]/30 bg-[#4C7DFE]/[0.07] text-[#1E3FAE]"
+          dark ? "border-white/15 bg-white/5 text-[#B9CBFF]" : "border-[#4C7DFE]/30 bg-[#4C7DFE]/[0.07] text-accent-ink"
         }`}
       >
         <span className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-[#8EAAFF]" : "bg-[#4C7DFE]"}`} />
@@ -99,7 +99,7 @@ export function SectionHeading({ eyebrow, parts, align = "center", tone = "light
             <Fragment key={`${p}-${i}`}>
               <motion.span
                 variants={word}
-                className={`inline-block will-change-transform ${part.accent ? (dark ? gradientTextOnDark : gradientText) : ""}`}
+                className={`inline-block ${part.accent ? (dark ? gradientTextOnDark : gradientText) : ""}`}
               >
                 {w}
               </motion.span>{" "}
@@ -151,7 +151,7 @@ export function ScrollProgress() {
     <motion.div
       aria-hidden
       style={{ scaleX }}
-      className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-[#8EAAFF] via-[#4C7DFE] to-[#001959]"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-[#8EAAFF] via-[#4C7DFE] to-[#001959] dark:to-[#DCE5FF]"
     />
   );
 }
