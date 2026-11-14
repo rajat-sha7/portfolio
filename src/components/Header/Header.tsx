@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { useLenis } from "lenis/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
 
 const links = [
-  { label: "Home", href: "#top" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#resume" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#top" },
+  { label: "About", href: "/#about" },
+  { label: "Projects", href: "/#resume" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const socials = [
@@ -22,6 +23,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
   const lenis = useLenis();
+  const pathname = usePathname();
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -56,7 +58,7 @@ const Header = () => {
   useEffect(() => {
     const sections = links
       .slice(1)
-      .map((l) => document.getElementById(l.href.slice(1)))
+      .map((l) => document.getElementById(l.href.split("#")[1]))
       .filter((el): el is HTMLElement => !!el);
     if (!sections.length) return;
     const visible = new Set<string>();
@@ -66,7 +68,7 @@ const Header = () => {
           if (e.isIntersecting) visible.add(e.target.id);
           else visible.delete(e.target.id);
         }
-        const current = links.find((l) => visible.has(l.href.slice(1)));
+        const current = links.find((l) => visible.has(l.href.split("#")[1]));
         if (current) setActiveLink(current.label);
         // Above the first section: back to Home
         else if (sections[0].getBoundingClientRect().top > window.innerHeight / 2) setActiveLink("Home");
@@ -75,7 +77,7 @@ const Header = () => {
     );
     sections.forEach((s) => io.observe(s));
     return () => io.disconnect();
-  }, []);
+  }, [pathname]);
 
   const desktopLink = (item: (typeof links)[number]) => (
     <Link
@@ -102,7 +104,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center justify-between w-full gap-4">
             <div className="flex gap-2 lg:gap-6">{links.slice(0, 2).map(desktopLink)}</div>
 
-            <Link href="#top" onClick={() => handleLinkClick("Home")} className="flex items-center shrink-0 group">
+            <Link href="/#top" onClick={() => handleLinkClick("Home")} className="flex items-center shrink-0 group">
               <Image src="/header_logo.svg" alt="Logo" width={40} height={40} className="h-9 lg:h-10 w-auto transition-transform duration-500 group-hover:rotate-[360deg]" />
               <span className="ml-2 font-bruno-ace text-[22px] lg:text-[28.76px] leading-[120%] bg-[linear-gradient(180deg,#ffffff_0%,#ffffff_50%,#4C7DFE_75%,#001959_100%)] bg-[length:100%_200%] bg-clip-text text-transparent group-hover:animate-text-gradient">
                 RajatSharma
@@ -114,7 +116,7 @@ const Header = () => {
 
           {/* Mobile bar: logo, current section, menu button */}
           <div className="md:hidden flex justify-between items-center w-full">
-            <Link href="#top" onClick={() => handleLinkClick("Home")} className="flex items-center">
+            <Link href="/#top" onClick={() => handleLinkClick("Home")} className="flex items-center">
               <Image src="/header_logo.svg" alt="Logo" width={32} height={32} className="h-8 w-auto" />
               <span className="ml-2 font-bruno-ace text-[17px]">RajatSharma</span>
             </Link>
@@ -207,7 +209,7 @@ const Header = () => {
 
               <div className="mt-4 flex items-center gap-3">
                 <Link
-                  href="#contact"
+                  href="/#contact"
                   tabIndex={isMenuOpen ? 0 : -1}
                   onClick={() => handleLinkClick("Contact")}
                   className="flex h-14 flex-1 items-center justify-center rounded-full bg-gradient-to-b from-[#4C7DFE] to-[#1E3FAE] font-plus-jakarta text-base font-bold text-white shadow-[0_14px_34px_-12px_rgba(76,125,254,0.9)]"

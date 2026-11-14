@@ -98,7 +98,7 @@ export const Portfolio = () => {
                         {/* Hover overlay */}
                         <div className="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-[#001959]/70 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover/spot:opacity-100">
                           <span className="flex translate-y-3 items-center gap-1.5 rounded-full bg-surface px-4 py-2 font-plus-jakarta text-xs font-bold text-ink-navy transition-transform duration-500 group-hover/spot:translate-y-0 md:text-sm">
-                            Visit site <ArrowUpRight className="h-4 w-4" />
+                            View project <ArrowUpRight className="h-4 w-4" />
                           </span>
                         </div>
                       </div>
@@ -107,10 +107,10 @@ export const Portfolio = () => {
                     <div className="relative px-3 pb-3 pt-5 md:px-4 md:pb-4">
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="font-bruno-ace text-lg font-normal leading-[1.3] text-ink md:text-2xl">
-                          {/* Stretched link: the whole card opens the live site */}
-                          <a href={item.demo} target="_blank" rel="noopener noreferrer" className="after:absolute after:inset-0">
+                          {/* Stretched link: the whole card opens the project page */}
+                          <Link href={`/projects/${item.id}`} className="after:absolute after:inset-0">
                             {item.title}
-                          </a>
+                          </Link>
                         </h3>
                         {item.repo ? (
                           <a

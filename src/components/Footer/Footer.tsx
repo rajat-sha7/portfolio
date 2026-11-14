@@ -8,10 +8,10 @@ import { Rise, SectionHeading, Stagger, RiseItem } from "@/components/motion/pri
 
 const Footer = () => {
   const navigationLinks = [
-    { name: "Home", href: "#top" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#resume" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/#top" },
+    { name: "About", href: "/#about" },
+    { name: "Projects", href: "/#resume" },
+    { name: "Contact", href: "/#contact" },
   ];
 
   const socialLinks = [
@@ -38,7 +38,7 @@ const Footer = () => {
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 400, damping: 22 }} className="w-full sm:w-auto">
           <Button asChild className="relative overflow-hidden transition-shadow duration-300 hover:shadow-[0_14px_34px_-10px_rgba(76,125,254,1)] font-plus-jakarta font-bold text-base md:text-lg leading-[140%] tracking-0 bg-gradient-to-b from-[#4C7DFE] to-[#001959] w-full sm:w-[200px] md:w-[242px] h-12 sm:h-14 md:h-[64px] rounded-[50px] flex items-center justify-center">
-            <Link href="#contact" className="group/btn">
+            <Link href="/#contact" className="group/btn">
               <span className="text-white inline-flex items-center">Hire me</span>
               <Image src="/Footer/btnarrow.svg" alt="" width={24} height={24} className="w-6 h-6 md:w-[30px] md:h-[30px] transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
               <span aria-hidden className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-sheen" />
