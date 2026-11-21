@@ -1,3 +1,4 @@
+import JsonLd from "@/components/JsonLd";
 import { projects } from "@/lib/projects";
 import { site, siteUrl } from "@/lib/site";
 
@@ -27,6 +28,23 @@ export default function StructuredData() {
         image: `${siteUrl}/avatar.png`,
         jobTitle: site.jobTitle,
         description: site.description,
+        disambiguatingDescription: site.bio[0],
+        hasOccupation: {
+          "@type": "Occupation",
+          name: site.jobTitle,
+          skills: site.skills.join(", "),
+        },
+        // What he can be hired for
+        makesOffer: site.services.map((s) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: s.name, description: s.description, provider: { "@id": personId } },
+        })),
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "project enquiries",
+          url: `${siteUrl}/#contact`,
+          availableLanguage: "English",
+        },
         address: { "@type": "PostalAddress", addressCountry: site.country },
         sameAs: [site.linkedin, site.github],
         knowsAbout: site.skills,
@@ -55,7 +73,8 @@ export default function StructuredData() {
             "@type": "CreativeWork",
             name: project.title,
             description: project.description,
-            url: project.demo,
+            // Personal projects have their own page; client projects stay unlinked
+            url: project.repo ? `${siteUrl}/projects/${project.id}` : undefined,
             image: `${siteUrl}${project.image}`,
             keywords: project.stack.split(" · ").join(", "),
             // Own projects list Rajat as creator; client sites list him as a contributor
@@ -68,11 +87,5 @@ export default function StructuredData() {
     ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      // "<" is escaped so the data can never close the script tag
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph).replace(/</g, "\\u003c") }}
-    />
-  );
+  return <JsonLd data={graph} />;
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ProjectPreview from "@/components/ProjectPreview";
+import JsonLd from "@/components/JsonLd";
+import { site, siteUrl } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Github } from "lucide-react";
@@ -35,8 +37,36 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const project = caseStudies[index];
   const next = caseStudies[(index + 1) % caseStudies.length];
 
+  const pageUrl = `${siteUrl}/projects/${project.id}`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": `${pageUrl}#project`,
+        name: project.title,
+        description: project.overview ?? project.description,
+        url: pageUrl,
+        image: `${siteUrl}${project.image}`,
+        codeRepository: project.repo,
+        sameAs: [project.demo, project.repo],
+        keywords: project.stack.split(" · ").join(", "),
+        author: { "@type": "Person", "@id": `${siteUrl}/#person`, name: site.name, url: siteUrl },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+          { "@type": "ListItem", position: 2, name: "Projects", item: `${siteUrl}/#resume` },
+          { "@type": "ListItem", position: 3, name: project.title, item: pageUrl },
+        ],
+      },
+    ],
+  };
+
   return (
     <main className="bg-background px-4 py-12 sm:px-6 md:py-20 lg:px-8">
+      <JsonLd data={schema} />
       <article className="mx-auto max-w-[1000px]">
         <Link
           href="/#resume"

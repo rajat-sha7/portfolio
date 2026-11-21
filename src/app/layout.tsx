@@ -49,7 +49,8 @@ export const metadata: Metadata = {
     "Freelance Web Developer",
     "Portfolio",
   ],
-  alternates: { canonical: "/" },
+  // The plain-text profile for AI assistants is linked here so tools can find it
+  alternates: { canonical: "/", types: { "text/plain": "/llms.txt" } },
   openGraph: {
     type: "profile",
     url: "/",
