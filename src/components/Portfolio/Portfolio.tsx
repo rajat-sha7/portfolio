@@ -90,9 +90,11 @@ export const Portfolio = () => {
                         <Image
                           src={item.image}
                           alt={`${item.title} screenshot`}
-                          width={1192}
-                          height={702}
-                          sizes="(min-width: 640px) 50vw, 100vw"
+                          width={2384}
+                          height={1404}
+                          quality={90}
+                          // Card is ~600px wide at most (2 columns in a 1280px container), so retina screens get ~1200px
+                          sizes="(min-width: 1280px) 600px, (min-width: 640px) 50vw, 100vw"
                           className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover/spot:scale-[1.06]"
                         />
                         {/* Hover overlay */}

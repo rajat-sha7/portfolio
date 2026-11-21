@@ -57,7 +57,7 @@ export default function ProjectPreview({ title, image, demo }: Props) {
         </div>
 
         {mode === 'screenshot' && (
-          <Image src={image} alt={`${title} screenshot`} width={1192} height={702} priority sizes="(min-width: 1000px) 1000px, 100vw" className="h-auto w-full" />
+          <Image src={image} alt={`${title} screenshot`} width={2384} height={1404} quality={90} priority sizes="(min-width: 1000px) 1000px, 100vw" className="h-auto w-full" />
         )}
         {mode === 'desktop' && (
           <iframe src={demo} title={`${title} live preview`} loading="lazy" referrerPolicy="no-referrer" className="block h-[70vh] min-h-[480px] w-full bg-white" />

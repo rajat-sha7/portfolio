@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   devIndicators: { position: 'bottom-right' },
   images: {
     formats: ['image/avif', 'image/webp'],
+    // 90 keeps text in project screenshots sharp; 75 is the default for everything else
+    qualities: [75, 90],
     remotePatterns: [
       {
         protocol: 'https',
