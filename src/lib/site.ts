@@ -1,7 +1,7 @@
 // One place for the facts that search engines and link previews read.
 
 // Set NEXT_PUBLIC_SITE_URL in Vercel if the site moves to a custom domain.
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-rajat-sha7s-projects.vercel.app").replace(/\/$/, "");
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://rajat-sharma-dev.vercel.app").replace(/\/$/, "");
 
 export const site = {
   name: "Rajat Sharma",

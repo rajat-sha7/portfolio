@@ -115,6 +115,6 @@ function layout(content: string) {
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden">
     <tr><td style="background:linear-gradient(180deg,#2b2b2b,#000);padding:20px 28px;color:#fff;font-size:20px;font-weight:bold;letter-spacing:.5px">Rajat Sharma</td></tr>
     <tr><td style="padding:28px;font-size:15px;line-height:1.6">${content}</td></tr>
-    <tr><td style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px">Sent from the contact form on portfolio-rajat-sha7s-projects.vercel.app</td></tr>
+    <tr><td style="padding:16px 28px;background:#fafafa;color:#888;font-size:12px">Sent from the contact form on rajat-sharma-dev.vercel.app</td></tr>
   </table></body></html>`;
 }
