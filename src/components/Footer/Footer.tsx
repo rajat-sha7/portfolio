@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Rise, SectionHeading, Stagger, RiseItem } from "@/components/motion/primitives";
+import { site, siteUrl } from "@/lib/site";
 
 const Footer = () => {
   const navigationLinks = [
@@ -14,10 +15,11 @@ const Footer = () => {
     { name: "Contact", href: "/#contact" },
   ];
 
+  // From the shared site config, so the header, footer and SEO data always agree
   const socialLinks = [
-    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/rajat-sharma-93175b199/" },
-    { icon: Github, label: "GitHub", href: "https://github.com/rajat-sha7/portfolio" },
-    { icon: Globe, label: "Portfolio", href: "https://portfolio-rajat-sha7s-projects.vercel.app" },
+    { icon: Linkedin, label: "LinkedIn", href: site.linkedin },
+    { icon: Github, label: "GitHub", href: site.github },
+    { icon: Globe, label: "Portfolio", href: siteUrl },
   ];
 
   return (
@@ -113,7 +115,6 @@ const Footer = () => {
                   </a>
                   </li>
                 ))}
-                <li className="leading-6 text-[#98A2B3] font-plus-jakarta-display text-sm md:text-[16px]">India</li>
               </ul>
             </div>
           </div>
@@ -126,14 +127,14 @@ const Footer = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 md:gap-4">
             <Link
-              href="#"
+              href="/terms"
               className="text-[#98A2B3] hover:text-white transition-colors font-plus-jakarta-display font-normal text-xs sm:text-sm md:text-[16px] leading-[150%]"
             >
               User Terms & Conditions
             </Link>
             <span className="text-[#98A2B3] hidden md:block">|</span>
             <Link
-              href="#"
+              href="/privacy"
               className="text-[#98A2B3] hover:text-white transition-colors font-plus-jakarta-display font-normal text-xs sm:text-sm md:text-[16px] leading-[150%]"
             >
               Privacy Policy

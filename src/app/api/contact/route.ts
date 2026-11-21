@@ -22,6 +22,10 @@ const MAX_PER_WINDOW = 3;
 
 function rateLimited(ip: string) {
   const now = Date.now();
+  // Forget IPs with no recent requests (the Privacy Policy promises IPs aren't kept)
+  for (const [key, times] of hits) {
+    if (times.every((t) => now - t >= WINDOW_MS)) hits.delete(key);
+  }
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
   recent.push(now);
   hits.set(ip, recent);
