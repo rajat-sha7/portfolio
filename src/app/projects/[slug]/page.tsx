@@ -3,12 +3,12 @@ import ProjectPreview from "@/components/ProjectPreview";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Github } from "lucide-react";
-import { getProject, projects } from "@/lib/projects";
+import { caseStudies, getProject } from "@/lib/projects";
 
 type Params = { slug: string };
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.id }));
+  return caseStudies.map((p) => ({ slug: p.id }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
@@ -29,11 +29,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
 export default async function ProjectPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  const index = projects.findIndex((p) => p.id === slug);
+  const index = caseStudies.findIndex((p) => p.id === slug);
   if (index === -1) notFound();
 
-  const project = projects[index];
-  const next = projects[(index + 1) % projects.length];
+  const project = caseStudies[index];
+  const next = caseStudies[(index + 1) % caseStudies.length];
 
   return (
     <main className="bg-background px-4 py-12 sm:px-6 md:py-20 lg:px-8">

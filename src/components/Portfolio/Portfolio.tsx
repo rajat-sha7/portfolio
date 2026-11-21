@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, Github } from 'lucide-react';
 import { ease, Rise, SectionHeading, SpotlightCard } from '@/components/motion/primitives';
-import { projects as portfolioItems } from '@/lib/projects';
+import { isClientProject, projects as portfolioItems } from '@/lib/projects';
 
 const categories = [
   { id: 'all', label: 'All' },
@@ -83,7 +83,7 @@ export const Portfolio = () => {
                         <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
                         <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
                         <span className="ml-2 truncate rounded-full bg-surface-muted px-3 py-0.5 font-plus-jakarta text-[10px] text-faint md:text-xs">
-                          {new URL(item.demo).host.replace(/^www\./, '')}
+                          {item.demo ? new URL(item.demo).host.replace(/^www\./, '') : 'Confidential client'}
                         </span>
                       </div>
                       <div className="relative aspect-video overflow-hidden">
@@ -98,19 +98,27 @@ export const Portfolio = () => {
                         {/* Hover overlay */}
                         <div className="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-[#001959]/70 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover/spot:opacity-100">
                           <span className="flex translate-y-3 items-center gap-1.5 rounded-full bg-surface px-4 py-2 font-plus-jakarta text-xs font-bold text-ink-navy transition-transform duration-500 group-hover/spot:translate-y-0 md:text-sm">
-                            View project <ArrowUpRight className="h-4 w-4" />
+                            {isClientProject(item) ? 'Hire me for a project like this' : 'View project'} <ArrowUpRight className="h-4 w-4" />
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="relative px-3 pb-3 pt-5 md:px-4 md:pb-4">
+                    {/* Not "relative": the title link's overlay must stretch to the whole card, not just this text block */}
+                    <div className="px-3 pb-3 pt-5 md:px-4 md:pb-4">
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="font-bruno-ace text-lg font-normal leading-[1.3] text-ink md:text-2xl">
-                          {/* Stretched link: the whole card opens the project page */}
-                          <Link href={`/projects/${item.id}`} className="after:absolute after:inset-0">
-                            {item.title}
-                          </Link>
+                          {/* Stretched link: the whole card opens the project page,
+                              or scrolls to the contact form for client projects (they have no page) */}
+                          {isClientProject(item) ? (
+                            <Link href="#contact" className="after:absolute after:inset-0">
+                              {item.title}
+                            </Link>
+                          ) : (
+                            <Link href={`/projects/${item.id}`} className="after:absolute after:inset-0">
+                              {item.title}
+                            </Link>
+                          )}
                         </h3>
                         {item.repo ? (
                           <a

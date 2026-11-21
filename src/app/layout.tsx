@@ -8,6 +8,7 @@ import Footer from "@/components/Footer/Footer";
 import { site, siteUrl } from "@/lib/site";
 import { ThemeProvider } from "next-themes";
 import ThemeToggle from "@/components/ThemeToggle";
+import HashLinks from "@/components/HashLinks";
 
 // Both fonts are self-hosted by next/font, so no render-blocking request to Google Fonts
 const brunoAce = Bruno_Ace({
@@ -94,7 +95,9 @@ export default function RootLayout({
       <body>
         {/* Follows the device's light/dark setting until the visitor picks one with the toggle */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <ReactLenis root options={{ lerp: 0.1, anchors: { offset: -96 } }}>
+          {/* Section links are handled by HashLinks, so "#id" never shows in the URL */}
+          <ReactLenis root options={{ lerp: 0.1 }}>
+            <HashLinks />
             <Header />
             {children}
             <Footer />
