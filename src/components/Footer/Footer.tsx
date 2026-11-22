@@ -62,7 +62,7 @@ const Footer = () => {
               <span className="font-bruno-ace font-normal text-xl md:text-[28.76px] leading-[120%] tracking-0">RajatSharma</span>
             </div>
             <p className="text-[#98A2B3] max-w-full md:max-w-[628px] font-plus-jakarta-display font-normal text-sm md:text-[16px] leading-[150%] tracking-0">
-              Senior Fullstack AI Developer with 4 years of experience in React, Next.js, Vue, Nuxt and SvelteKit. I build fast, accessible web apps powered by headless CMS and AI-assisted workflows.
+              Senior Fullstack AI Developer with 3.5+ years of experience in React, Next.js, Vue, Nuxt and SvelteKit. I build fast, accessible web apps powered by headless CMS and AI-assisted workflows.
             </p>
 
             {/* Social Links */}

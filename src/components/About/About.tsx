@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { SectionHeading, SpotlightCard, Stagger, RiseItem } from "@/components/motion/primitives";
 
 const paragraphs = [
-  "Hello! I'm Rajat Sharma, a fullstack AI developer with 4 years of experience building production web applications across the React, Vue and Svelte ecosystems. I specialise in fast, accessible, SEO-friendly sites powered by headless CMS platforms like Sanity, Strapi, Storyblok and Builder.io.",
+  "Hello! I'm Rajat Sharma, a fullstack AI developer with 3.5+ years of experience building production web applications across the React, Vue and Svelte ecosystems. I specialise in fast, accessible, SEO-friendly sites powered by headless CMS platforms like Sanity, Strapi, Storyblok and Builder.io.",
   "I turn designs into maintainable, component-driven frontends with TypeScript and Tailwind CSS, keep a close eye on Core Web Vitals, and use AI tools like Claude and ChatGPT to ship faster, while keeping full ownership of architecture and quality.",
 ];
 

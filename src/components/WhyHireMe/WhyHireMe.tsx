@@ -5,7 +5,7 @@ import CountUp from '@/components/motion/CountUp';
 import { ease, rise, Rise, SectionHeading, SpotlightCard, stagger, viewport } from '@/components/motion/primitives';
 
 const stats: { value: string; label: string; icon: LucideIcon }[] = [
-  { value: '4+', label: 'Years of Experience', icon: Briefcase },
+  { value: '3.5+', label: 'Years of Experience', icon: Briefcase },
   { value: '25+', label: 'Projects on GitHub', icon: FolderGit2 },
   { value: '10+', label: 'Live Deployments', icon: Rocket },
 ];
