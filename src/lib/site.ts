@@ -63,5 +63,5 @@ export const site = {
         "LLM API integrations in React and Next.js apps, chat interfaces and content generation features, plus AI-assisted scaffolding, code review, refactoring and documentation.",
     },
   ],
-  highlights: ["3.5+ years of experience", "25+ projects on GitHub", "10+ live deployments"],
+  highlights: ["3.5+ years of experience", "30+ projects built", "10+ live deployments"],
 } as const;

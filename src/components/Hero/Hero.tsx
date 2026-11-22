@@ -281,8 +281,8 @@ const Hero = () => {
                     <FolderGit2 className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
                   </span>
                   <span>
-                    <span className="block font-bruno-ace text-sm leading-none text-ink sm:text-xl">25+</span>
-                    <span className="mt-1 block font-plus-jakarta text-[10px] text-body sm:text-xs">Projects on GitHub</span>
+                    <span className="block font-bruno-ace text-sm leading-none text-ink sm:text-xl">30+</span>
+                    <span className="mt-1 block font-plus-jakarta text-[10px] text-body sm:text-xs">Projects Built</span>
                   </span>
                 </div>
               </motion.div>
