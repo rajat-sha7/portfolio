@@ -6,7 +6,7 @@ import { ease, rise, Rise, SectionHeading, SpotlightCard, stagger, viewport } fr
 
 const stats: { value: string; label: string; icon: LucideIcon }[] = [
   { value: '3.5+', label: 'Years of Experience', icon: Briefcase },
-  { value: '30+', label: 'Projects Built', icon: FolderGit2 },
+  { value: '25+', label: 'Projects on GitHub', icon: FolderGit2 },
   { value: '10+', label: 'Live Deployments', icon: Rocket },
 ];
 
